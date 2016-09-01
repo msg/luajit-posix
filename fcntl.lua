@@ -1,3 +1,6 @@
+--
+-- p o s i x . f c n t l
+--
 module(..., package.seeall)
 
 local ffi	= require('ffi')

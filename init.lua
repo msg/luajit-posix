@@ -1,4 +1,6 @@
-
+--
+-- p o s i x . i n i t
+--
 module(..., package.seeall)
 
 local path = ... .. '.'

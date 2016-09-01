@@ -1,4 +1,6 @@
-
+--
+-- p o s i x . s y s . i n i t
+--
 module(..., package.seeall)
 
 mman	= require('mman')

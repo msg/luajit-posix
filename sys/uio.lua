@@ -1,3 +1,6 @@
+--
+-- p o s i x . s y s . u i o
+--
 module(..., package.seeall)
 local ffi = require('ffi')
 local sys_types = require('posix.sys.types')
