@@ -47,7 +47,7 @@ ffi.cdef([[
 	struct cmsghdr *__cmsg_nxthdr (struct msghdr *__mhdr,
 				      struct cmsghdr *__cmsg);
 
-	int accept (int fd, struct sockaddr *addr, unsigned int addrlen);
+	int accept (int fd, struct sockaddr *addr, socklen_t *addrlen);
 	int bind (int fd, struct sockaddr *addr, unsigned int addrlen);
 	int connect (int fd, struct sockaddr *addr, unsigned int addrlen);
 	int getpeername (int fd, struct sockaddr *addr, socklen_t *len);
@@ -94,21 +94,22 @@ SOCK_SEQPACKET		= 5
 
 SOL_SOCKET		= 1
 
-SO_ACCEPTCONN		= 30
-SO_BROADCAST		= 6
-SO_DEBUG		= 1
-SO_DONTROUTE		= 5
-SO_ERROR		= 4
-SO_KEEPALIVE		= 9
-SO_LINGER		= 13
-SO_OOBINLINE		= 10
-SO_RCVBUF		= 8
-SO_RCVLOWAT		= 18
-SO_RCVTIMEO		= 20
-SO_SNDBUF		= 7
-SO_SNDLOWAT		= 19
-SO_SNDTIMEO		= 21
-SO_TYPE			= 3
+SO_ACCEPTCONN   	= 30
+SO_BROADCAST    	= 6
+SO_DEBUG        	= 1
+SO_DONTROUTE    	= 5
+SO_ERROR        	= 4
+SO_KEEPALIVE    	= 9
+SO_LINGER       	= 13
+SO_OOBINLINE    	= 10
+SO_RCVBUF       	= 8
+SO_RCVLOWAT     	= 18
+SO_RCVTIMEO     	= 20
+SO_REUSEADDR    	= 2
+SO_SNDBUF       	= 7
+SO_SNDLOWAT     	= 19
+SO_SNDTIMEO     	= 21
+SO_TYPE         	= 3
 
 SOMAXCONN		= 128
 
