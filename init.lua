@@ -4,6 +4,7 @@
 module(..., package.seeall)
 
 local path = ... .. '.'
+dirent	= require(path .. 'dirent')
 fcntl	= require(path .. 'fcntl')
 netdb	= require(path .. 'netdb')
 poll	= require(path .. 'poll')
