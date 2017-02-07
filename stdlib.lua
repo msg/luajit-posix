@@ -88,3 +88,6 @@ ffi.cdef([[
 	int wctomb(char *, wchar_t);
 ]])
 
+EXIT_FAILURE	= 1
+EXIT_SUCCESS	= 0
+RAND_MAX	= 2147483647
