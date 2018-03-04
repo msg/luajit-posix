@@ -308,3 +308,41 @@ struct sigstack {
 extern int sigstack (struct sigstack *ss, struct sigstack *oss);
      
 ]])
+
+SIG_ERR	= -1	-- Error return.
+SIG_DFL	= 0	-- Default action.
+SIG_IGN	= 1	-- Ignore signal.
+
+SIGINT		= 2
+SIGILL		= 4
+SIGABRT		= 6
+SIGFPE		= 8
+SIGSEGV		= 11
+SIGTERM		= 15
+
+SIGHUP		= 1
+SIGQUIT		= 3
+SIGTRAP		= 5
+SIGKILL		= 9
+SIGBUS		= 10
+SIGSYS		= 12
+SIGPIPE		= 13
+SIGALRM		= 14
+
+SIGURG		= 16
+SIGSTOP		= 17
+SIGTSTP		= 18
+SIGCONT		= 19
+SIGCHLD		= 20
+SIGTTIN		= 21
+SIGTTOU		= 22
+SIGPOLL		= 23
+SIGXCPU		= 24
+SIGXFSZ		= 25
+SIGVTALRM	= 26
+SIGPROF		= 27
+SIGUSR1		= 30
+SIGUSR2		= 31
+
+SIGWINCH	= 28
+
