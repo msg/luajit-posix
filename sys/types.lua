@@ -105,4 +105,7 @@ typedef long int suseconds_t;
 typedef long int time_t;
 typedef void *timer_t;
 typedef unsigned int uid_t;
+struct sched_param {
+	int sched_priority;
+};
 ]])
