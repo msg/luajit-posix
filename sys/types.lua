@@ -20,10 +20,10 @@ typedef unsigned int mode_t;
 typedef unsigned long int nlink_t;
 typedef long int off_t;
 typedef int pid_t;
-union pthread_attr_t {
+typedef union pthread_attr_t {
 	char __size[56];
 	long int __align;
-};
+} pthread_attr_t;
 typedef union {
 	char __size[32];
 	long int __align;
@@ -105,4 +105,7 @@ typedef long int suseconds_t;
 typedef long int time_t;
 typedef void *timer_t;
 typedef unsigned int uid_t;
+struct sched_param {
+	int sched_priority;
+};
 ]])
