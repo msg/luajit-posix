@@ -106,6 +106,7 @@ SO_RCVBUF       	= 8
 SO_RCVLOWAT     	= 18
 SO_RCVTIMEO     	= 20
 SO_REUSEADDR    	= 2
+SO_REUSEPORT    	= 15
 SO_SNDBUF       	= 7
 SO_SNDLOWAT     	= 19
 SO_SNDTIMEO     	= 21
