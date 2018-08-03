@@ -1,3 +1,8 @@
+--
+-- p o s i x . e r r n o
+--
+module(..., package.seeall)
+
 EPERM              = 1
 ENOENT             = 2
 ESRCH              = 3
