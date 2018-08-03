@@ -3,6 +3,7 @@
 --
 module(..., package.seeall)
 
+ioctl	= require('ioctl')
 mman	= require('mman')
 socket	= require('socket')
 statfs	= require('statfs')
