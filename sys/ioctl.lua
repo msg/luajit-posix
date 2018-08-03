@@ -6,7 +6,7 @@ module(..., package.seeall)
 local ffi = require('ffi')
 local bit = require('bit')
 
-ffi.cdef([[ int ioctl(int fd, unsigned int req, ...); ]])
+ffi.cdef([[ int ioctl(int fd, unsigned long int req, ...); ]])
 
 local byte = string.byte
 
