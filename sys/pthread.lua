@@ -1,7 +1,8 @@
 --
 -- p o s i x . s y s . p t h r e a d
 --
-module(..., package.seeall)
+local M = {}
+
 local ffi = require('ffi')
 local sys_types = require('posix.sys.types')
 local time = require('posix.time')
@@ -57,14 +58,16 @@ int pthread_setspecific(pthread_key_t, void*);
 void pthread_testcancel();
 ]])
 
-PTHREAD_CANCEL_ENABLE		= 0
-PTHREAD_CANCEL_DISABLE		= 1
-PTHREAD_CANCEL_DEFERRED		= 0
-PTHREAD_CANCEL_ASYNCHRONOUS	= 1
-PTHREAD_CANCELED		= -1
-PTHREAD_CREATE_JOINABLE		= 0
-PTHREAD_CREATE_DETACHED		= 1
-PTHREAD_INHERIT_SCHED		= 0
-PTHREAD_EXPLICIT_SCHED		= 1
-PTHREAD_PROCESS_PRIVATE		= 0
-PTHREAD_PROCESS_SHARED		= 1
+M.PTHREAD_CANCEL_ENABLE		= 0
+M.PTHREAD_CANCEL_DISABLE	= 1
+M.PTHREAD_CANCEL_DEFERRED	= 0
+M.PTHREAD_CANCEL_ASYNCHRONOUS	= 1
+M.PTHREAD_CANCELED		= -1
+M.PTHREAD_CREATE_JOINABLE	= 0
+M.PTHREAD_CREATE_DETACHED	= 1
+M.PTHREAD_INHERIT_SCHED		= 0
+M.PTHREAD_EXPLICIT_SCHED	= 1
+M.PTHREAD_PROCESS_PRIVATE	= 0
+M.PTHREAD_PROCESS_SHARED	= 1
+
+return M

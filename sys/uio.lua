@@ -1,7 +1,8 @@
 --
 -- p o s i x . s y s . u i o
 --
-module(..., package.seeall)
+local M = { }
+
 local ffi = require('ffi')
 local sys_types = require('posix.sys.types')
 
@@ -17,3 +18,5 @@ ffi.cdef([[
 	ssize_t pwritev (int fd, const struct iovec *iovec, int count,
 		off_t offset) ;
 ]])
+
+return M

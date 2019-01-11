@@ -1,7 +1,7 @@
 --
 -- p o s i x . p o l l
 --
-module(..., package.seeall)
+local poll = { }
 
 local ffi	= require('ffi')
 local sys_types	= require('posix.sys.types')
@@ -16,13 +16,15 @@ ffi.cdef([[
 	int poll (struct pollfd *fds, nfds_t nfds, int timeout);
 ]])
 
-POLLIN		= 0x001
-POLLPRI		= 0x002
-POLLOUT		= 0x004
-POLLRDNORM	= 0x040
-POLLRDBAND	= 0x080
-POLLWRNORM	= 0x100
-POLLWRBAND	= 0x200
-POLLERR		= 0x008
-POLLHUP		= 0x010
-POLLNVAL	= 0x020
+poll.POLLIN	= 0x001
+poll.POLLPRI	= 0x002
+poll.POLLOUT	= 0x004
+poll.POLLRDNORM	= 0x040
+poll.POLLRDBAND	= 0x080
+poll.POLLWRNORM	= 0x100
+poll.POLLWRBAND	= 0x200
+poll.POLLERR	= 0x008
+poll.POLLHUP	= 0x010
+poll.POLLNVAL	= 0x020
+
+return poll

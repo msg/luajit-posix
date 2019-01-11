@@ -1,7 +1,7 @@
 --
 -- p o s i x . s t r i n g
 --
-module(..., package.seeall)
+local string = { }
 
 local ffi	= require('ffi')
 local sys_types	= require('posix.sys.types')
@@ -47,3 +47,4 @@ ffi.cdef([[
 	char *stpncpy (char *dest, const char *src, size_t n);
 ]])
 
+return string

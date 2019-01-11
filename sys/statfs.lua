@@ -1,7 +1,8 @@
 --
 -- p o s i x . s y s . s t a t f s
 --
-module(..., package.seeall)
+local M = { }
+
 local ffi = require('ffi')
 local sys_types = require('posix.sys.types')
 
@@ -32,3 +33,5 @@ ffi.cdef([[
 	int fstatfs (int fildes, struct statfs *buf);
 
 ]])
+
+return M

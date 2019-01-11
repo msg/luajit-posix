@@ -1,7 +1,7 @@
 --
 -- p o s i x . s y s . s o c k e t
 --
-module(..., package.seeall)
+local M = { }
 
 local ffi	= require('ffi')
 local sys_types	= require('posix.sys.types')
@@ -75,11 +75,11 @@ ffi.cdef([[
 	int socketpair (int domain, int type, int protocol, int fds[2]);
 ]])
 
-SCM_RIGHTS = 0x01
+M.SCM_RIGHTS = 0x01
 
-function CMSG_DATA(cmsg) return cmsg.__cmsg_data end
-CMSG_NXTHDR = C.__cmsg_nxthdr
-function CMSG_FIRSTHDR(mhdr)
+function M.CMSG_DATA(cmsg) return cmsg.__cmsg_data end
+M.CMSG_NXTHDR = C.__cmsg_nxthdr
+function M.CMSG_FIRSTHDR(mhdr)
 	if mhdr.msg_controllen >= ffi.sizeof('struct cmsghdr') then
 		return ffi.cast('struct cmsghdr *', mhdr.msg_control)
 	else
@@ -87,60 +87,61 @@ function CMSG_FIRSTHDR(mhdr)
 	end
 end
 
-SOCK_STREAM		= 1
-SOCK_DGRAM		= 2
-SOCK_RAW		= 3
-SOCK_SEQPACKET		= 5
+M.SOCK_STREAM		= 1
+M.SOCK_DGRAM		= 2
+M.SOCK_RAW		= 3
+M.SOCK_SEQPACKET	= 5
 
-SOL_SOCKET		= 1
+M.SOL_SOCKET		= 1
 
-SO_ACCEPTCONN   	= 30
-SO_BROADCAST    	= 6
-SO_DEBUG        	= 1
-SO_DONTROUTE    	= 5
-SO_ERROR        	= 4
-SO_KEEPALIVE    	= 9
-SO_LINGER       	= 13
-SO_OOBINLINE    	= 10
-SO_RCVBUF       	= 8
-SO_RCVLOWAT     	= 18
-SO_RCVTIMEO     	= 20
-SO_REUSEADDR    	= 2
-SO_REUSEPORT    	= 15
-SO_SNDBUF       	= 7
-SO_SNDLOWAT     	= 19
-SO_SNDTIMEO     	= 21
-SO_TYPE         	= 3
+M.SO_ACCEPTCONN   	= 30
+M.SO_BROADCAST    	= 6
+M.SO_DEBUG        	= 1
+M.SO_DONTROUTE    	= 5
+M.SO_ERROR        	= 4
+M.SO_KEEPALIVE    	= 9
+M.SO_LINGER       	= 13
+M.SO_OOBINLINE    	= 10
+M.SO_RCVBUF       	= 8
+M.SO_RCVLOWAT     	= 18
+M.SO_RCVTIMEO     	= 20
+M.SO_REUSEADDR    	= 2
+M.SO_REUSEPORT    	= 15
+M.SO_SNDBUF       	= 7
+M.SO_SNDLOWAT     	= 19
+M.SO_SNDTIMEO     	= 21
+M.SO_TYPE         	= 3
 
-SOMAXCONN		= 128
+M.SOMAXCONN		= 128
 
-MSG_OOB			= 0x01
-MSG_PEEK		= 0x02
-MSG_DONTROUTE		= 0x04
-MSG_TRYHARD		= MSG_DONTROUTE
-MSG_CTRUNC		= 0x08
-MSG_PROXY		= 0x10
-MSG_DONTWAIT		= 0x40
-MSG_TRUNC		= 0x20
-MSG_EOR			= 0x80
-MSG_WAITALL		= 0x100
-MSG_FIN			= 0x200
-MSG_SYN			= 0x400
-MSG_CONFIRM		= 0x800
-MSG_RST			= 0x1000
-MSG_ERRQUEUE		= 0x2000
-MSG_NOSIGNAL		= 0x4000
-MSG_MORE		= 0x8000
-MSG_WAITFORONE		= 0x10000
-MSG_FASTOPEN		= 0x20000000
-MSG_CMSG_CLOEXEC	= 0x40000000
+M.MSG_OOB		= 0x01
+M.MSG_PEEK		= 0x02
+M.MSG_DONTROUTE		= 0x04
+M.MSG_TRYHARD		= MSG_DONTROUTE
+M.MSG_CTRUNC		= 0x08
+M.MSG_PROXY		= 0x10
+M.MSG_DONTWAIT		= 0x40
+M.MSG_TRUNC		= 0x20
+M.MSG_EOR		= 0x80
+M.MSG_WAITALL		= 0x100
+M.MSG_FIN		= 0x200
+M.MSG_SYN		= 0x400
+M.MSG_CONFIRM		= 0x800
+M.MSG_RST		= 0x1000
+M.MSG_ERRQUEUE		= 0x2000
+M.MSG_NOSIGNAL		= 0x4000
+M.MSG_MORE		= 0x8000
+M.MSG_WAITFORONE	= 0x10000
+M.MSG_FASTOPEN		= 0x20000000
+M.MSG_CMSG_CLOEXEC	= 0x40000000
 
-SHUT_RD			= 0
-SHUT_WR			= 1
-SHUT_RDWR		= 2
+M.SHUT_RD		= 0
+M.SHUT_WR		= 1
+M.SHUT_RDWR		= 2
 
-AF_UNSPEC		= 0
-AF_UNIX			= 1
-AF_INET			= 2
-AF_INET6		= 10
+M.AF_UNSPEC		= 0
+M.AF_UNIX		= 1
+M.AF_INET		= 2
+M.AF_INET6		= 10
 
+return M

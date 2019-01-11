@@ -1,7 +1,7 @@
 --
 -- p o s i x . n e t d b
 --
-module(..., package.seeall)
+local netdb = { }
 
 local ffi		= require('ffi')
 local sys_types		= require('posix.sys.types')
@@ -72,27 +72,29 @@ ffi.cdef([[
 	void setservent (int stay_open);
 ]])
 
-AI_PASSIVE		= 0x0001
-AI_CANONNAME		= 0x0002
-AI_NUMERICHOST		= 0x0004
-AI_NUMERICSERV		= 0x0400
-AI_V4MAPPED		= 0x0008
-AI_ALL			= 0x0010
-AI_ADDRCONFIG		= 0x0020
+netdb.AI_PASSIVE	= 0x0001
+netdb.AI_CANONNAME	= 0x0002
+netdb.AI_NUMERICHOST	= 0x0004
+netdb.AI_NUMERICSERV	= 0x0400
+netdb.AI_V4MAPPED	= 0x0008
+netdb.AI_ALL		= 0x0010
+netdb.AI_ADDRCONFIG	= 0x0020
 
-NI_NUMERICHOST		= 1
-NI_NUMERICSERV  	= 2
-NI_NOFQDN		= 4
-NI_NAMEREQD		= 8
-NI_DGRAM		= 16
+netdb.NI_NUMERICHOST	= 1
+netdb.NI_NUMERICSERV	= 2
+netdb.NI_NOFQDN		= 4
+netdb.NI_NAMEREQD	= 8
+netdb.NI_DGRAM		= 16
 
-EAI_BADFLAGS	  	= -1
-EAI_NONAME	  	= -2
-EAI_AGAIN	  	= -3
-EAI_FAIL	  	= -4
-EAI_FAMILY	  	= -6
-EAI_SOCKTYPE	  	= -7
-EAI_SERVICE	  	= -8
-EAI_MEMORY	  	= -10
-EAI_SYSTEM	  	= -11
-EAI_OVERFLOW	  	= -12
+netdb.EAI_BADFLAGS	= -1
+netdb.EAI_NONAME	= -2
+netdb.EAI_AGAIN		= -3
+netdb.EAI_FAIL		= -4
+netdb.EAI_FAMILY	= -6
+netdb.EAI_SOCKTYPE	= -7
+netdb.EAI_SERVICE	= -8
+netdb.EAI_MEMORY	= -10
+netdb.EAI_SYSTEM	= -11
+netdb.EAI_OVERFLOW	= -12
+
+return netdb

@@ -1,7 +1,8 @@
 --
 -- p o s i x . s y s . t y p e s
 --
-module(..., package.seeall)
+local M = { }
+
 local ffi = require('ffi')
 
 ffi.cdef([[
@@ -109,3 +110,5 @@ struct sched_param {
 	int sched_priority;
 };
 ]])
+
+return M

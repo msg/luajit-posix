@@ -1,7 +1,8 @@
 --
 -- p o s i x . u n i s t d
 --
-module(..., package.seeall)
+local unistd = { }
+
 local ffi	= require('ffi')
 local sys_types	= require('posix.sys.types')
 
@@ -89,3 +90,5 @@ ffi.cdef([[
 	int opterr;
 	int optopt;
 ]])
+
+return unistd

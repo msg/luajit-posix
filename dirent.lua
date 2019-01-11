@@ -1,7 +1,7 @@
 --
 -- p o s i x . d i r e n t
 --
-module(..., package.seeall)
+local dirent = { }
 
 local ffi	= require('ffi')
 local sys_types	= require('posix.sys.types')
@@ -32,12 +32,14 @@ ffi.cdef([[
 	long telldir(DIR *);
 ]])
 
-DT_UNKNOWN	= 0
-DT_FIFO		= 1
-DT_CHR		= 2
-DT_DIR		= 4
-DT_BLK		= 6
-DT_REG		= 8
-DT_LNK		= 10
-DT_SOCK		= 12
-DT_WHT		= 14
+dirent.DT_UNKNOWN	= 0
+dirent.DT_FIFO		= 1
+dirent.DT_CHR		= 2
+dirent.DT_DIR		= 4
+dirent.DT_BLK		= 6
+dirent.DT_REG		= 8
+dirent.DT_LNK		= 10
+dirent.DT_SOCK		= 12
+dirent.DT_WHT		= 14
+
+return dirent

@@ -1,7 +1,7 @@
 --
 -- p o s i x . s t d l i b
 --
-module(..., package.seeall)
+local stdlib = { }
 
 local ffi	= require('ffi')
 local sys_types	= require('posix.sys.types')
@@ -88,6 +88,8 @@ ffi.cdef([[
 	int wctomb(char *, wchar_t);
 ]])
 
-EXIT_FAILURE	= 1
-EXIT_SUCCESS	= 0
-RAND_MAX	= 2147483647
+stdlib.EXIT_FAILURE	= 1
+stdlib.EXIT_SUCCESS	= 0
+stdlib.RAND_MAX		= 2147483647
+
+return stdlib

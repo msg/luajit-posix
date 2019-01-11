@@ -14,7 +14,7 @@ ffi.cdef([[
 struct stat {
 	dev_t st_dev;
 	ino_t st_ino;
-	nlink_t st_mode;
+	nlink_t st_nlink;
 	mode_t st_mode;
 	uid_t st_uid;
 	gid_t st_gid;
@@ -122,6 +122,7 @@ function M.mknodat(...)
 	return ffi.C.__xmknodat(0, ...)
 end
 
+-- NOTE: should this become a standard part of all ffi modules?
 local cache = { }
 
 setmetatable(M, {

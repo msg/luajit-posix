@@ -1,7 +1,7 @@
 --
 -- p o s i x . i n e t
 --
-module(..., package.seeall)
+local M = { }
 
 local ffi		= require('ffi')
 local netinet_in	= require('posix.netinet.in')
@@ -17,3 +17,5 @@ ffi.cdef([[
 	const char *inet_ntop(int af, const void *cp, char *buf, socklen_t len);
 	int inet_pton (int af, const char *cp, void *buf);
 ]])
+
+return M

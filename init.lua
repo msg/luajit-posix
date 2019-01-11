@@ -1,18 +1,20 @@
 --
 -- p o s i x . i n i t
 --
-module(..., package.seeall)
+local init = { }
 
 local path = ... .. '.'
-dirent	= require(path .. 'dirent')
-fcntl	= require(path .. 'fcntl')
-netdb	= require(path .. 'netdb')
-poll	= require(path .. 'poll')
-stdio	= require(path .. 'stdio')
-string	= require(path .. 'string')
-time	= require(path .. 'time')
-unistd	= require(path .. 'unistd')
+init.dirent	= require(path .. 'dirent')
+init.fcntl	= require(path .. 'fcntl')
+init.netdb	= require(path .. 'netdb')
+init.poll	= require(path .. 'poll')
+init.stdio	= require(path .. 'stdio')
+init.string	= require(path .. 'string')
+init.time	= require(path .. 'time')
+init.unistd	= require(path .. 'unistd')
 
-arpa	= require(path .. 'arpa')
-netinet	= require(path .. 'netinet')
---std	= require(path .. 'std')
+init.arpa	= require(path .. 'arpa')
+init.netinet	= require(path .. 'netinet')
+--init.std	= require(path .. 'std')
+
+return init

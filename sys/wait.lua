@@ -1,7 +1,7 @@
 --
 -- p o s i x . s y s . w a i t
 --
-module(..., package.seeall)
+local M = { }
 
 local ffi = require('ffi')
 local bit = require('bit')
@@ -13,35 +13,37 @@ ffi.cdef([[
 	pid_t waitpid(pid_t pid, int *wstatus, int options);
 ]])
 
-WNOHANG		= 1
-WUNTRACED	= 2
+M.WNOHANG	= 1
+M.WUNTRACED	= 2
 
-WSTOPPED	= 2
-WEXITED		= 4
-WCONTINUED	= 8
-WNOWAIT		= 0x01000000
+M.WSTOPPED	= 2
+M.WEXITED	= 4
+M.WCONTINUED	= 8
+M.WNOWAIT	= 0x01000000
 
-function WEXITSTATUS(wstatus)
+function M.WEXITSTATUS(wstatus)
 	return bit.rshift(bit.band(wstatus, 0xff00), 8)
 end
 
-function WIFEXITED(wstatus)
-	return WEXITSTATUS == 0
+function M.WIFEXITED(wstatus)
+	return M.WEXITSTATUS(wstatus) == 0
 end
 
-function WIFSIGNALED(wstatus)
+function M.WIFSIGNALED(wstatus)
 	return bit.rshift(bit.band(wstatus, 0x7f) + 1, 1) > 0
 end
 
-function WTERMSIG(wstatus)
+function M.WTERMSIG(wstatus)
 	return bit.band(wstatus, 0x7f)
 end
 
-WCOREFLAG = 0x80
-function WCOREDUMP(wstatus)
-	return bit.band(wstatus, WCOREFLAG)
+M.WCOREFLAG = 0x80
+function M.WCOREDUMP(wstatus)
+	return bit.band(wstatus, M.WCOREFLAG)
 end
 
-WSTOPSIG = WEXITSTATUS
+M.WSTOPSIG = M.WEXITSTATUS
 
 -- WIFCONTINUED(wstatus) not-implemented
+
+return M

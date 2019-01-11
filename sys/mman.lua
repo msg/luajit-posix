@@ -1,7 +1,8 @@
 --
 -- p o s i x . s y s . m m a n
 --
-module(..., package.seeall)
+local M = {}
+
 local ffi	= require('ffi')
 local sys_types	= require('posix.sys.types')
 
@@ -22,23 +23,25 @@ ffi.cdef([[
 	int shm_unlink (const char *name);
 ]])
 
-MAP_FAILED	= ffi.cast('void *', -1)
+M.MAP_FAILED	= ffi.cast('void *', -1)
 
-PROT_READ	= 0x1
-PROT_WRITE	= 0x2
-PROT_EXEC	= 0x4
-PROT_NONE	= 0x0
+M.PROT_READ	= 0x1
+M.PROT_WRITE	= 0x2
+M.PROT_EXEC	= 0x4
+M.PROT_NONE	= 0x0
 
-MAP_FIXED	= 0x10
-MAP_SHARED	= 0x01
-MAP_PRIVATE	= 0x02
-MAP_ANONYMOUS	= 0x20
+M.MAP_FIXED	= 0x10
+M.MAP_SHARED	= 0x01
+M.MAP_PRIVATE	= 0x02
+M.MAP_ANONYMOUS	= 0x20
 
-MCL_CURRENT	= 1
-MCL_FUTURE	= 2
+M.MCL_CURRENT	= 1
+M.MCL_FUTURE	= 2
 
-POSIX_MADV_NORMAL	= 0
-POSIX_MADV_RANDOM	= 1
-POSIX_MADV_SEQUENTIAL	= 2
-POSIX_MADV_WILLNEED	= 3
-POSIX_MADV_DONTNEED	= 4
+M.POSIX_MADV_NORMAL	= 0
+M.POSIX_MADV_RANDOM	= 1
+M.POSIX_MADV_SEQUENTIAL	= 2
+M.POSIX_MADV_WILLNEED	= 3
+M.POSIX_MADV_DONTNEED	= 4
+
+return M

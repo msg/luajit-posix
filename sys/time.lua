@@ -1,7 +1,8 @@
 --
 -- p o s i x . s y s . t i m e
 --
-module(..., package.seeall)
+local M = { }
+
 local ffi = require('ffi')
 local sys_types = require('posix.sys.types')
 
@@ -28,6 +29,9 @@ int select (int __nfds, fd_set *____readfds,
      struct timeval *____timeout);
 int utimes (const char *__file, const struct timeval __tvp[2]);
 ]])
-ITIMER_REAL	= 0
-ITIMER_VIRTUAL	= 1
-ITIMER_PROF	= 2
+
+M.ITIMER_REAL		= 0
+M.ITIMER_VIRTUAL	= 1
+M.ITIMER_PROF		= 2
+
+return M

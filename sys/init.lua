@@ -1,13 +1,15 @@
 --
 -- p o s i x . s y s . i n i t
 --
-module(..., package.seeall)
+local M = { }
 
-ioctl	= require('ioctl')
-mman	= require('mman')
-socket	= require('socket')
-statfs	= require('statfs')
-time	= require('time')
-types	= require('types')
-uio	= require('uio')
-wait	= require('wait')
+M.ioctl		= require('ioctl')
+M.mman		= require('mman')
+M.socket	= require('socket')
+M.statfs	= require('statfs')
+M.time		= require('time')
+M.types		= require('types')
+M.uio		= require('uio')
+M.wait		= require('wait')
+
+return M
