@@ -135,3 +135,5 @@ errno.EKEYREVOKED	= 128
 errno.EKEYREJECTED	= 129
 errno.EOWNERDEAD	= 130
 errno.ENOTRECOVERABLE	= 131
+
+return errno
