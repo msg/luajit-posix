@@ -44,4 +44,24 @@ M.POSIX_MADV_SEQUENTIAL	= 2
 M.POSIX_MADV_WILLNEED	= 3
 M.POSIX_MADV_DONTNEED	= 4
 
+M.MADV_NORMAL		= 0     -- No further special treatment.
+M.MADV_RANDOM		= 1     -- Expect random page references.
+M.MADV_SEQUENTIAL	= 2     -- Expect sequential page references.
+M.MADV_WILLNEED		= 3     -- Will need these pages.
+M.MADV_DONTNEED		= 4     -- Don't need these pages.
+M.MADV_FREE		= 8     -- Free pages only if memory pressure.
+M.MADV_REMOVE		= 9     -- Remove these pages and resources.
+M.MADV_DONTFORK		= 10    -- Do not inherit across fork.
+M.MADV_DOFORK		= 11    -- Do inherit across fork.
+M.MADV_MERGEABLE	= 12    -- KSM may merge identical pages.
+M.MADV_UNMERGEABLE	= 13    -- KSM may not merge identical pages.
+M.MADV_HUGEPAGE		= 14    -- Worth backing with hugepages.
+M.MADV_NOHUGEPAGE	= 15    -- Not worth backing with hugepages.
+M.MADV_DONTDUMP		= 16    -- Explicity exclude from the core dump,
+				-- overrides the coredump filter bits.
+M.MADV_DODUMP		= 17    -- Clear the MADV_DONTDUMP flag.
+M.MADV_WIPEONFORK	= 18    -- Zero memory on fork, child only.
+M.MADV_KEEPONFORK	= 19    -- Undo MADV_WIPEONFORK.
+M.MADV_HWPOISON		= 100   -- Poison a page for testing.
+
 return M
