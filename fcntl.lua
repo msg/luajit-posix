@@ -51,7 +51,7 @@ fcntl.O_TRUNC		= 0x200		-- 01000
 fcntl.O_APPEND		= 0x400		-- 02000
 fcntl.O_DSYNC		= 0x1000	-- 010000
 fcntl.O_NONBLOCK	= 0x800		-- 04000
-fcntl.O_NDELAY		= O_NONBLOCK
+fcntl.O_NDELAY		= fcntl.O_NONBLOCK
 fcntl.O_SYNC		= 0x101000	-- 04010000
 
 fcntl.O_ACCMODE		= 03
@@ -59,7 +59,7 @@ fcntl.O_ACCMODE		= 03
 fcntl.O_RDONLY		= 00
 fcntl.O_WRONLY		= 01
 fcntl.O_RDWR		= 02
-fcntl.O_FSYNC		= O_SYNC
+fcntl.O_FSYNC		= fcntl.O_SYNC
 fcntl.F_ASYNC		= 0x2000	-- 020000
 
 return fcntl
