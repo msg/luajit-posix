@@ -4,7 +4,8 @@
 local string = { }
 
 local ffi	= require('ffi')
-local sys_types	= require('posix.sys.types')
+
+require('posix.sys.types')
 
 ffi.cdef([[
 	void *memcpy (void *dest, const void *src, size_t n);

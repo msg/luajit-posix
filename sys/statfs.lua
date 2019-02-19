@@ -1,10 +1,11 @@
 --
 -- p o s i x . s y s . s t a t f s
 --
-local M = { }
+local statfs = { }
 
 local ffi = require('ffi')
-local sys_types = require('posix.sys.types')
+
+require('posix.sys.types')
 
 ffi.cdef([[
 	typedef struct { int __val[2]; } __fsid_t;
@@ -34,4 +35,4 @@ ffi.cdef([[
 
 ]])
 
-return M
+return statfs

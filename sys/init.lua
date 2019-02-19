@@ -1,15 +1,15 @@
 --
 -- p o s i x . s y s . i n i t
 --
-local M = { }
+local init = { }
 
-M.ioctl		= require('ioctl')
-M.mman		= require('mman')
-M.socket	= require('socket')
-M.statfs	= require('statfs')
-M.time		= require('time')
-M.types		= require('types')
-M.uio		= require('uio')
-M.wait		= require('wait')
+init.ioctl	= require('ioctl')
+init.mman	= require('mman')
+init.socket	= require('socket')
+init.statfs	= require('statfs')
+init.time	= require('time')
+init.types	= require('types')
+init.uio	= require('uio')
+init.wait	= require('wait')
 
-return M
+return init

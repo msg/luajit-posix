@@ -1,10 +1,11 @@
 --
 -- p o s i x . s y s . t i m e
 --
-local M = { }
+local time = { }
 
 local ffi = require('ffi')
-local sys_types = require('posix.sys.types')
+
+require('posix.sys.types')
 
 ffi.cdef([[
 struct timeval {
@@ -30,8 +31,8 @@ int select (int __nfds, fd_set *____readfds,
 int utimes (const char *__file, const struct timeval __tvp[2]);
 ]])
 
-M.ITIMER_REAL		= 0
-M.ITIMER_VIRTUAL	= 1
-M.ITIMER_PROF		= 2
+time.ITIMER_REAL	= 0
+time.ITIMER_VIRTUAL	= 1
+time.ITIMER_PROF	= 2
 
-return M
+return time

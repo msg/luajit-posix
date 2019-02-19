@@ -4,7 +4,8 @@
 local signal = { }
 
 local ffi	= require('ffi')
-local sys_types	= require('posix.sys.types')
+
+require('posix.sys.types')
 
 ffi.cdef([[
 typedef int sig_atomic_t;
@@ -174,7 +175,7 @@ extern void psignal (int sig, const char *s);
 extern void psiginfo (const siginfo_t *pinfo, const char *s);
 extern int sigblock (int mask);
 extern int sigsetmask (int mask);
-extern int siggetmask (void); 
+extern int siggetmask (void);
 
 typedef sighandler_t sig_t;
 
@@ -205,7 +206,7 @@ extern int sigwaitinfo (const sigset_t *set, siginfo_t *info);
 extern int sigtimedwait (const sigset_t *set, siginfo_t *info,
 	const struct timespec *timeout);
 extern int sigqueue (pid_t pid, int sig, const union sigval val);
-     
+
 extern const char *const _sys_siglist[ (64 + 1) ];
 extern const char *const sys_siglist[ (64 + 1) ];
 

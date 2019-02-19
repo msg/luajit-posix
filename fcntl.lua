@@ -4,7 +4,8 @@
 local fcntl = { }
 
 local ffi	= require('ffi')
-local sys_types	= require('posix.sys.types')
+
+require('posix.sys.types')
 
 ffi.cdef([[
 	struct flock {

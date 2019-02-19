@@ -4,8 +4,9 @@
 local stdlib = { }
 
 local ffi	= require('ffi')
-local sys_types	= require('posix.sys.types')
-local sys_types	= require('posix.stddef')
+
+require('posix.sys.types')
+require('posix.stddef')
 
 ffi.cdef([[
 	typedef struct {

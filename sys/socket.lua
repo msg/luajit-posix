@@ -1,11 +1,12 @@
 --
 -- p o s i x . s y s . s o c k e t
 --
-local M = { }
+local socket = { }
 
 local ffi	= require('ffi')
-local sys_types	= require('posix.sys.types')
-local sys_time	= require('posix.sys.time')
+
+require('posix.sys.types')
+require('posix.sys.time')
 
 local C = ffi.C
 
@@ -75,11 +76,11 @@ ffi.cdef([[
 	int socketpair (int domain, int type, int protocol, int fds[2]);
 ]])
 
-M.SCM_RIGHTS = 0x01
+socket.SCM_RIGHTS = 0x01
 
-function M.CMSG_DATA(cmsg) return cmsg.__cmsg_data end
-M.CMSG_NXTHDR = C.__cmsg_nxthdr
-function M.CMSG_FIRSTHDR(mhdr)
+function socket.CMSG_DATA(cmsg) return cmsg.__cmsg_data end
+socket.CMSG_NXTHDR = C.__cmsg_nxthdr
+function socket.CMSG_FIRSTHDR(mhdr)
 	if mhdr.msg_controllen >= ffi.sizeof('struct cmsghdr') then
 		return ffi.cast('struct cmsghdr *', mhdr.msg_control)
 	else
@@ -87,61 +88,61 @@ function M.CMSG_FIRSTHDR(mhdr)
 	end
 end
 
-M.SOCK_STREAM		= 1
-M.SOCK_DGRAM		= 2
-M.SOCK_RAW		= 3
-M.SOCK_SEQPACKET	= 5
+socket.SOCK_STREAM	= 1
+socket.SOCK_DGRAM	= 2
+socket.SOCK_RAW		= 3
+socket.SOCK_SEQPACKET	= 5
 
-M.SOL_SOCKET		= 1
+socket.SOL_SOCKET	= 1
 
-M.SO_ACCEPTCONN   	= 30
-M.SO_BROADCAST    	= 6
-M.SO_DEBUG        	= 1
-M.SO_DONTROUTE    	= 5
-M.SO_ERROR        	= 4
-M.SO_KEEPALIVE    	= 9
-M.SO_LINGER       	= 13
-M.SO_OOBINLINE    	= 10
-M.SO_RCVBUF       	= 8
-M.SO_RCVLOWAT     	= 18
-M.SO_RCVTIMEO     	= 20
-M.SO_REUSEADDR    	= 2
-M.SO_REUSEPORT    	= 15
-M.SO_SNDBUF       	= 7
-M.SO_SNDLOWAT     	= 19
-M.SO_SNDTIMEO     	= 21
-M.SO_TYPE         	= 3
+socket.SO_ACCEPTCONN   	= 30
+socket.SO_BROADCAST    	= 6
+socket.SO_DEBUG        	= 1
+socket.SO_DONTROUTE    	= 5
+socket.SO_ERROR        	= 4
+socket.SO_KEEPALIVE    	= 9
+socket.SO_LINGER       	= 13
+socket.SO_OOBINLINE    	= 10
+socket.SO_RCVBUF       	= 8
+socket.SO_RCVLOWAT     	= 18
+socket.SO_RCVTIMEO     	= 20
+socket.SO_REUSEADDR    	= 2
+socket.SO_REUSEPORT    	= 15
+socket.SO_SNDBUF       	= 7
+socket.SO_SNDLOWAT     	= 19
+socket.SO_SNDTIMEO     	= 21
+socket.SO_TYPE         	= 3
 
-M.SOMAXCONN		= 128
+socket.SOMAXCONN	= 128
 
-M.MSG_OOB		= 0x01
-M.MSG_PEEK		= 0x02
-M.MSG_DONTROUTE		= 0x04
-M.MSG_TRYHARD		= MSG_DONTROUTE
-M.MSG_CTRUNC		= 0x08
-M.MSG_PROXY		= 0x10
-M.MSG_DONTWAIT		= 0x40
-M.MSG_TRUNC		= 0x20
-M.MSG_EOR		= 0x80
-M.MSG_WAITALL		= 0x100
-M.MSG_FIN		= 0x200
-M.MSG_SYN		= 0x400
-M.MSG_CONFIRM		= 0x800
-M.MSG_RST		= 0x1000
-M.MSG_ERRQUEUE		= 0x2000
-M.MSG_NOSIGNAL		= 0x4000
-M.MSG_MORE		= 0x8000
-M.MSG_WAITFORONE	= 0x10000
-M.MSG_FASTOPEN		= 0x20000000
-M.MSG_CMSG_CLOEXEC	= 0x40000000
+socket.MSG_OOB		= 0x01
+socket.MSG_PEEK		= 0x02
+socket.MSG_DONTROUTE	= 0x04
+socket.MSG_TRYHARD	= socket.MSG_DONTROUTE
+socket.MSG_CTRUNC	= 0x08
+socket.MSG_PROXY	= 0x10
+socket.MSG_DONTWAIT	= 0x40
+socket.MSG_TRUNC	= 0x20
+socket.MSG_EOR		= 0x80
+socket.MSG_WAITALL	= 0x100
+socket.MSG_FIN		= 0x200
+socket.MSG_SYN		= 0x400
+socket.MSG_CONFIRM	= 0x800
+socket.MSG_RST		= 0x1000
+socket.MSG_ERRQUEUE	= 0x2000
+socket.MSG_NOSIGNAL	= 0x4000
+socket.MSG_MORE		= 0x8000
+socket.MSG_WAITFORONE	= 0x10000
+socket.MSG_FASTOPEN	= 0x20000000
+socket.MSG_CMSG_CLOEXEC	= 0x40000000
 
-M.SHUT_RD		= 0
-M.SHUT_WR		= 1
-M.SHUT_RDWR		= 2
+socket.SHUT_RD		= 0
+socket.SHUT_WR		= 1
+socket.SHUT_RDWR	= 2
 
-M.AF_UNSPEC		= 0
-M.AF_UNIX		= 1
-M.AF_INET		= 2
-M.AF_INET6		= 10
+socket.AF_UNSPEC	= 0
+socket.AF_UNIX		= 1
+socket.AF_INET		= 2
+socket.AF_INET6		= 10
 
-return M
+return socket

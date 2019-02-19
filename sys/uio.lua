@@ -1,10 +1,11 @@
 --
 -- p o s i x . s y s . u i o
 --
-local M = { }
+local uio = { }
 
 local ffi = require('ffi')
-local sys_types = require('posix.sys.types')
+
+require('posix.sys.types')
 
 ffi.cdef([[
 	typedef struct iovec {
@@ -19,4 +20,4 @@ ffi.cdef([[
 		off_t offset) ;
 ]])
 
-return M
+return uio

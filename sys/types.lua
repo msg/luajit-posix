@@ -1,7 +1,7 @@
 --
 -- p o s i x . s y s . t y p e s
 --
-local M = { }
+local types = { }
 
 local ffi = require('ffi')
 
@@ -111,4 +111,4 @@ struct sched_param {
 };
 ]])
 
-return M
+return types

@@ -1,13 +1,14 @@
 --
 -- p o s i x . s y s . s t a t
 --
-local M = {}
+local stat = {}
 
-ffi = require('ffi') -- non-local for cache stuff below
-local bit = require('bit')
-local sys_types = require('posix.sys.types')
-local time = require('posix.time')
-local band, bor, lshift = bit.band, bit.bor, bit.lshift
+local ffi		= require('ffi') -- non-local for cache stuff below
+local bit		= require('bit')
+local bor, lshift	= bit.bor, bit.lshift
+
+require('posix.sys.types')
+require('posix.time')
 
 ffi.cdef([[
 /* __x86_64__ */
@@ -55,9 +56,9 @@ int utimensat (int fd, const char *path, const struct timespec times[2],
 int futimens (int fd, const struct timespec times[2]);
 ]])
 
-function M.octal(val)
+function stat.octal(val)
 	local oct = 0
-	local bit = 0
+	local bit = 0 -- luacheck: ignore bit
 	while val > 0 do
 		oct = bor(oct, lshift(math.fmod(val, 10), bit))
 		bit = bit + 3
@@ -66,67 +67,67 @@ function M.octal(val)
 	return oct
 end
 
-M.S_IFMT = M.octal(0170000)
+stat.S_IFMT = stat.octal(0170000)
 
-M.S_IFDIR = M.octal(0040000)
-M.S_IFCHR = M.octal(0020000)
-M.S_IFBLK = M.octal(0060000)
-M.S_IFREG = M.octal(0100000)
-M.S_IFIFO = M.octal(0010000)
-M.S_IFLNK = M.octal(0120000)
-M.S_IFSOCK = M.octal(0140000)
+stat.S_IFDIR = stat.octal(0040000)
+stat.S_IFCHR = stat.octal(0020000)
+stat.S_IFBLK = stat.octal(0060000)
+stat.S_IFREG = stat.octal(0100000)
+stat.S_IFIFO = stat.octal(0010000)
+stat.S_IFLNK = stat.octal(0120000)
+stat.S_IFSOCK = stat.octal(0140000)
 
-function M.S_TYPEISMQ(buf) return buf.st_mode - buf.st_mode end
-function M.S_TYPEISSEM(buf) return buf.st_mode - buf.st_mode end
-function M.S_TYPEISSHM(buf) return buf.st_mode - buf.st_mode end
+function stat.S_TYPEISMQ(buf) return buf.st_mode - buf.st_mode end
+function stat.S_TYPEISSEM(buf) return buf.st_mode - buf.st_mode end
+function stat.S_TYPEISSHM(buf) return buf.st_mode - buf.st_mode end
 
-M.S_ISUID = M.octal(04000)
-M.S_ISGID = M.octal(02000)
-M.S_ISVTX = M.octal(01000)
-M.S_IREAD = M.octal(0400)
-M.S_IWRITE = M.octal(0200)
-M.S_IEXEC = M.octal(0100)
+stat.S_ISUID = stat.octal(04000)
+stat.S_ISGID = stat.octal(02000)
+stat.S_ISVTX = stat.octal(01000)
+stat.S_IREAD = stat.octal(0400)
+stat.S_IWRITE = stat.octal(0200)
+stat.S_IEXEC = stat.octal(0100)
 
-function M.S_ISTYPE(mode, mask)
-	return bit.band(mode, M.S_IFMT) == mask
+function stat.S_ISTYPE(mode, mask)
+	return bit.band(mode, stat.S_IFMT) == mask
 end
 
-function M.S_ISDIR(mode) return M.S_ISTYPE(mode, M.S_IFDIR) end
-function M.S_ISCHR(mode) return M.S_ISTYPE(mode, M.S_IFCHR) end
-function M.S_ISBLK(mode) return M.S_ISTYPE(mode, M.S_IFBLK) end
-function M.S_ISREG(mode) return M.S_ISTYPE(mode, M.S_IFREG) end
-function M.S_ISFIFO(mode) return M.S_ISTYPE(mode, M.S_IFIFO) end
-function M.S_ISLNK(mode) return M.S_ISTYPE(mode, M.S_IFLNK) end
+function stat.S_ISDIR(mode) return stat.S_ISTYPE(mode, stat.S_IFDIR) end
+function stat.S_ISCHR(mode) return stat.S_ISTYPE(mode, stat.S_IFCHR) end
+function stat.S_ISBLK(mode) return stat.S_ISTYPE(mode, stat.S_IFBLK) end
+function stat.S_ISREG(mode) return stat.S_ISTYPE(mode, stat.S_IFREG) end
+function stat.S_ISFIFO(mode) return stat.S_ISTYPE(mode, stat.S_IFIFO) end
+function stat.S_ISLNK(mode) return stat.S_ISTYPE(mode, stat.S_IFLNK) end
 
-function M.fstat(...)
+function stat.fstat(...)
 	return ffi.C.__fxstat(0, ...)
 end
 
-function M.stat(...)
+function stat.stat(...)
 	return ffi.C.__xstat(0, ...)
 end
 
-function M.lstat(...)
+function stat.lstat(...)
 	return ffi.C.__lxstat(0, ...)
 end
 
-function M.fstatat(...)
+function stat.fstatat(...)
 	return ffi.C.__fxstatat(0, ...)
 end
 
-function M.mknod(...)
+function stat.mknod(...)
 	return ffi.C.__xmknod(0, ...)
 end
 
-function M.mknodat(...)
+function stat.mknodat(...)
 	return ffi.C.__xmknodat(0, ...)
 end
 
 -- NOTE: should this become a standard part of all ffi modules?
 local cache = { }
 
-setmetatable(M, {
-	__index = function(tbl, key)
+setmetatable(stat, {
+	__index = function(tbl, key) -- luacheck: ignore tbl
 		if not cache[key] then
 			cache[key] = assert(loadstring('return ffi.C.'..key))()
 		end
@@ -134,4 +135,4 @@ setmetatable(M, {
 	end,
 })
 
-return M
+return stat

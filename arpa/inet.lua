@@ -1,11 +1,12 @@
 --
 -- p o s i x . i n e t
 --
-local M = { }
+local inet = { }
 
 local ffi		= require('ffi')
-local netinet_in	= require('posix.netinet.in')
-local sys_types		= require('posix.sys.types')
+
+require('posix.netinet.in')
+require('posix.sys.types')
 
 ffi.cdef([[
 	uint32_t ntohl (uint32_t netlong);
@@ -18,4 +19,4 @@ ffi.cdef([[
 	int inet_pton (int af, const char *cp, void *buf);
 ]])
 
-return M
+return inet

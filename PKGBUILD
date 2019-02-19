@@ -1,6 +1,6 @@
 # Maintainer: msg
 pkgname=luajit-posix
-pkgver=2018.08.08.r0.797f4a7
+pkgver=2019.02.10.r0.864ad9d
 pkgrel=1
 pkgdesc="A ffi posix interface"
 arch=('x86_64')
