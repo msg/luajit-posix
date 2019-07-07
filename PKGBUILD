@@ -1,9 +1,9 @@
 # Maintainer: msg
 pkgname=luajit-posix
-pkgver=2019.02.10.r0.864ad9d
+pkgver=2019.02.18.r1.2844083
 pkgrel=1
 pkgdesc="A ffi posix interface"
-arch=('x86_64')
+arch=('any')
 url="http://localhost"
 license=('MIT')
 groups=()
