@@ -55,6 +55,7 @@ int nanosleep (const struct timespec *requested_time,
 size_t strftime (char *s, size_t maxsize,
    const char *format, const struct tm *tp);
 char *strptime(const char *, const char *, struct tm *);
+time_t time(time_t *);
 time_t timegm (struct tm *tp);
 time_t timelocal (struct tm *tp);
 int timer_create (clockid_t clock_id, struct sigevent *evp,
