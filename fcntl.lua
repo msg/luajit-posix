@@ -41,17 +41,17 @@ fcntl.F_RDLCK		= 0
 fcntl.F_UNLCK		= 2
 fcntl.F_WRLCK		= 1
 
-fcntl.O_CLOEXEC		= 0x80000	-- 02000000
 fcntl.O_CREAT		= 0x40		-- 0100
-fcntl.O_DIRECTORY	= 0x10000	-- 0200000
 fcntl.O_EXCL		= 0x80		-- 0200
 fcntl.O_NOCTTY		= 0x100		-- 0400
-fcntl.O_NOFOLLOW	= 0x20000	-- 0400000
 fcntl.O_TRUNC		= 0x200		-- 01000
+fcntl.O_DIRECT		= 0x10000	-- 040000
+fcntl.O_NOFOLLOW	= 0x20000	-- 0400000
+fcntl.O_CLOEXEC		= 0x80000	-- 02000000
 
 fcntl.O_APPEND		= 0x400		-- 02000
-fcntl.O_DSYNC		= 0x1000	-- 010000
 fcntl.O_NONBLOCK	= 0x800		-- 04000
+fcntl.O_DSYNC		= 0x1000	-- 010000
 fcntl.O_NDELAY		= fcntl.O_NONBLOCK
 fcntl.O_SYNC		= 0x101000	-- 04010000
 
