@@ -63,4 +63,11 @@ fcntl.O_RDWR		= 02
 fcntl.O_FSYNC		= fcntl.O_SYNC
 fcntl.F_ASYNC		= 0x2000	-- 020000
 
+fcntl.POSIX_FADV_NORMAL		= 0
+fcntl.POSIX_FADV_RANDOM		= 1
+fcntl.POSIX_FADV_SEQUENTIAL	= 2
+fcntl.POSIX_FADV_WILLNEED	= 3
+fcntl.POSIX_FADV_DONTNEED	= 4
+fcntl.POSIX_FADV_NOREUSE	= 5
+
 return fcntl
