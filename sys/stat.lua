@@ -57,14 +57,7 @@ int futimens (int fd, const struct timespec times[2]);
 ]])
 
 function stat.octal(val)
-	local oct = 0
-	local bit = 0 -- luacheck: ignore bit
-	while val > 0 do
-		oct = bor(oct, lshift(math.fmod(val, 10), bit))
-		bit = bit + 3
-		val = math.floor(val / 10)
-	end
-	return oct
+	return tonumber(val, 8)
 end
 
 stat.S_IFMT = stat.octal(0170000)
