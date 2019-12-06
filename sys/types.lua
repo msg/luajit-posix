@@ -5,6 +5,12 @@ local types = { }
 
 local ffi = require('ffi')
 
+if ffi.arch == 'x64' then
+ffi.cdef('typedef unsigned long int nlink_t;')
+else
+ffi.cdef('typedef unsigned int nlink_t;')
+end
+
 ffi.cdef([[
 typedef long int blksize_t;
 typedef long int blkcnt_t;
@@ -18,7 +24,6 @@ typedef unsigned int id_t;
 typedef unsigned long int ino_t;
 typedef int key_t;
 typedef unsigned int mode_t;
-typedef unsigned long int nlink_t;
 typedef long int off_t;
 typedef int pid_t;
 typedef union pthread_attr_t {

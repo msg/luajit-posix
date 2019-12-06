@@ -10,8 +10,8 @@ local bor, lshift	= bit.bor, bit.lshift
 require('posix.sys.types')
 require('posix.time')
 
+if ffi.arch == 'x64' then
 ffi.cdef([[
-/* __x86_64__ */
 struct stat {
 	dev_t st_dev;
 	ino_t st_ino;
@@ -29,7 +29,30 @@ struct stat {
 	struct timespec st_ctim;
 	uint64_t glibc_reserved[3];
 };
+]])
+else
+ffi.cdef([[
+struct stat {
+	dev_t st_dev;
+	ino_t st_ino;
+	mode_t st_mode;
+	nlink_t st_nlink;
+	uid_t st_uid;
+	gid_t st_gid;
+	uint32_t __pad0;
+	dev_t st_rdev;
+	off_t st_size;
+	blksize_t st_blksize;
+	blkcnt_t st_blocks;
+	struct timespec st_atim;
+	struct timespec st_mtim;
+	struct timespec st_ctim;
+	uint64_t glibc_reserved[3];
+};
+]])
+end
 
+ffi.cdef([[
 // the actual *stat* interfaces
 int __fxstat(int ver, int fd, struct stat *st);
 int __xstat(int ver, const char *path, struct stat *st);
