@@ -92,4 +92,9 @@ ffi.cdef([[
 	int optopt;
 ]])
 
+unistd.R_OK	= 4
+unistd.W_OK	= 3
+unistd.X_OK	= 2
+unistd.F_OK	= 1
+
 return unistd
