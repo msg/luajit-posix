@@ -92,9 +92,17 @@ ffi.cdef([[
 	int optopt;
 ]])
 
-unistd.R_OK	= 4
-unistd.W_OK	= 3
-unistd.X_OK	= 2
-unistd.F_OK	= 1
+unistd.STDIN_FILENO	= 0
+unistd.STDOUT_FILENO	= 1
+unistd.STDERR_FILENO	= 2
+
+unistd.R_OK		= 4
+unistd.W_OK		= 3
+unistd.X_OK		= 2
+unistd.F_OK		= 1
+
+unistd.SEEK_SET		= 0
+unistd.SEEK_CUR		= 1
+unistd.SEEK_END		= 2
 
 return unistd
