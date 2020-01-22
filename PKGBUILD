@@ -1,6 +1,6 @@
 # Maintainer: msg
 pkgname=luajit-posix
-pkgver=2019.02.18.r1.2844083
+pkgver=2020.01.19.r0.be043c1
 pkgrel=1
 pkgdesc="A ffi posix interface"
 arch=('any')
@@ -20,7 +20,7 @@ package() {
 	cd $startdir
 
 	lmod="$pkgdir$(pkg-config --variable=INSTALL_LMOD luajit)"
-	for i in $(find . -type f); do
+	for i in $(find . -type f -name '*.lua'); do
 		install -D -m644 "$i" "$lmod/posix/$i"
 	done
 }
