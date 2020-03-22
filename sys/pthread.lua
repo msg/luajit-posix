@@ -8,6 +8,8 @@ local ffi = require('ffi')
 require('posix.sys.types')
 require('posix.time')
 
+pthread.lib = ffi.load('pthread')
+
 ffi.cdef([[
 int pthread_atfork(void function(), void function(), void function());
 int pthread_attr_destroy(pthread_attr_t*);
