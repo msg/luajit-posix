@@ -3,11 +3,17 @@
 --
 local time = { }
 
-local ffi = require('ffi')
+local ffi	= require('ffi')
+local  C	=  ffi.C
 
 require('posix.sys.types')
 
 ffi.cdef([[
+enum {
+	ITIMER_REAL	= 0,
+	ITIMER_VIRTUAL	= 1,
+	ITIMER_PROF	= 2,
+};
 struct timeval {
 	time_t tv_sec;
 	suseconds_t tv_usec;
@@ -31,8 +37,9 @@ int select (int __nfds, fd_set *____readfds,
 int utimes (const char *__file, const struct timeval __tvp[2]);
 ]])
 
-time.ITIMER_REAL	= 0
-time.ITIMER_VIRTUAL	= 1
-time.ITIMER_PROF	= 2
-
-return time
+return setmetatable(time, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

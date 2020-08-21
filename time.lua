@@ -4,10 +4,20 @@
 local time = { }
 
 local ffi	= require('ffi')
+local  C	=  ffi.C
 
 require('posix.sys.types')
 
 ffi.cdef([[
+enum {
+	CLOCKS_PER_SEC  		= 1000000,
+	CLOCK_REALTIME			= 0,
+	CLOCK_MONOTONIC			= 1,
+	CLOCK_PROCESS_CPUTIME_ID	= 2,
+	CLOCK_THREAD_CPUTIME_ID		= 3,
+	CLOCK_BOOTTIME			= 7,
+	TIMER_ABSTIME			= 1,
+};
 struct timespec {
 	time_t tv_sec;
 	long int tv_nsec;
@@ -72,12 +82,9 @@ extern long int timezone;
 extern char *tzname[2];
 ]])
 
-time.CLOCKS_PER_SEC  		= 1000000
-time.CLOCK_REALTIME		= 0
-time.CLOCK_MONOTONIC		= 1
-time.CLOCK_PROCESS_CPUTIME_ID	= 2
-time.CLOCK_THREAD_CPUTIME_ID	= 3
-time.CLOCK_BOOTTIME		= 7
-time.TIMER_ABSTIME		= 1
-
-return time
+return setmetatable(time, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

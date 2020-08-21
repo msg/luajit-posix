@@ -32,7 +32,11 @@ ffi.cdef([[
 
 	int statfs (const char *file, struct statfs *buf);
 	int fstatfs (int fildes, struct statfs *buf);
-
 ]])
 
-return statfs
+return setmetatable(statfs, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

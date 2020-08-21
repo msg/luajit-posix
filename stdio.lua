@@ -8,9 +8,9 @@ local ffi	= require('ffi')
 require('posix.sys.types')
 
 ffi.cdef([[
-	int printf(const char *format, ...);
-	int sprintf(char *s, const char *format, ...);
-	int snprintf(char *s, size_t maxlen, const char *format, ...);
+int printf(const char *format, ...);
+int sprintf(char *s, const char *format, ...);
+int snprintf(char *s, size_t maxlen, const char *format, ...);
 ]])
 
 return stdio

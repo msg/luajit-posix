@@ -4,28 +4,35 @@
 local poll = { }
 
 local ffi	= require('ffi')
+local  C	=  ffi.C
 
 require('posix.sys.types')
 
 ffi.cdef([[
-	typedef unsigned long int nfds_t;
-	struct pollfd {
-		int fd;
-		short int events;
-		short int revents;
-	};
-	int poll (struct pollfd *fds, nfds_t nfds, int timeout);
+enum {
+	POLLIN		= 0x001,
+	POLLPRI		= 0x002,
+	POLLOUT		= 0x004,
+	POLLRDNORM	= 0x040,
+	POLLRDBAND	= 0x080,
+	POLLWRNORM	= 0x100,
+	POLLWRBAND	= 0x200,
+	POLLERR		= 0x008,
+	POLLHUP		= 0x010,
+	POLLNVAL	= 0x020,
+};
+typedef unsigned long int nfds_t;
+struct pollfd {
+	int fd;
+	short int events;
+	short int revents;
+};
+int poll (struct pollfd *fds, nfds_t nfds, int timeout);
 ]])
 
-poll.POLLIN	= 0x001
-poll.POLLPRI	= 0x002
-poll.POLLOUT	= 0x004
-poll.POLLRDNORM	= 0x040
-poll.POLLRDBAND	= 0x080
-poll.POLLWRNORM	= 0x100
-poll.POLLWRBAND	= 0x200
-poll.POLLERR	= 0x008
-poll.POLLHUP	= 0x010
-poll.POLLNVAL	= 0x020
-
-return poll
+return setmetatable(poll, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

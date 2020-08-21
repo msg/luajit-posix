@@ -3,7 +3,8 @@
 --
 local pthread = {}
 
-local ffi = require('ffi')
+local ffi	= require('ffi')
+local  C	=  ffi.C
 
 require('posix.sys.types')
 require('posix.time')
@@ -11,6 +12,20 @@ require('posix.time')
 pthread.lib = ffi.load('pthread')
 
 ffi.cdef([[
+enum {
+	PTHREAD_CANCEL_ENABLE		= 0,
+	PTHREAD_CANCEL_DISABLE		= 1,
+	PTHREAD_CANCEL_DEFERRED		= 0,
+	PTHREAD_CANCEL_ASYNCHRONOUS	= 1,
+	PTHREAD_CANCELED		= -1,
+	PTHREAD_CREATE_JOINABLE		= 0,
+	PTHREAD_CREATE_DETACHED		= 1,
+	PTHREAD_INHERIT_SCHED		= 0,
+	PTHREAD_EXPLICIT_SCHED		= 1,
+	PTHREAD_PROCESS_PRIVATE		= 0,
+	PTHREAD_PROCESS_SHARED		= 1,
+};
+
 int pthread_atfork(void function(), void function(), void function());
 int pthread_attr_destroy(pthread_attr_t*);
 int pthread_attr_getdetachstate(pthread_attr_t*, int*);
@@ -61,16 +76,9 @@ int pthread_setspecific(pthread_key_t, void*);
 void pthread_testcancel();
 ]])
 
-pthread.PTHREAD_CANCEL_ENABLE		= 0
-pthread.PTHREAD_CANCEL_DISABLE		= 1
-pthread.PTHREAD_CANCEL_DEFERRED		= 0
-pthread.PTHREAD_CANCEL_ASYNCHRONOUS	= 1
-pthread.PTHREAD_CANCELED		= -1
-pthread.PTHREAD_CREATE_JOINABLE		= 0
-pthread.PTHREAD_CREATE_DETACHED		= 1
-pthread.PTHREAD_INHERIT_SCHED		= 0
-pthread.PTHREAD_EXPLICIT_SCHED		= 1
-pthread.PTHREAD_PROCESS_PRIVATE		= 0
-pthread.PTHREAD_PROCESS_SHARED		= 1
-
-return pthread
+return setmetatable(pthread, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

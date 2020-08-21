@@ -4,10 +4,53 @@
 local signal = { }
 
 local ffi	= require('ffi')
+local  C	=  ffi.C
 
 require('posix.sys.types')
 
 ffi.cdef([[
+enum {
+	SIG_ERR		= -1,
+	SIG_DFL		= 0,
+	SIG_IGN		= 1,
+
+	SIGINT		= 2,
+	SIGILL		= 4,
+	SIGABRT		= 6,
+	SIGFPE		= 8,
+	SIGSEGV		= 11,
+	SIGTERM		= 15,
+
+	SIGHUP		= 1,
+	SIGQUIT		= 3,
+	SIGTRAP		= 5,
+	SIGKILL		= 9,
+	SIGBUS		= 10,
+	SIGSYS		= 12,
+	SIGPIPE		= 13,
+	SIGALRM		= 14,
+
+	SIGURG		= 16,
+	SIGSTOP		= 17,
+	SIGTSTP		= 18,
+	SIGCONT		= 19,
+	SIGCHLD		= 20,
+	SIGTTIN		= 21,
+	SIGTTOU		= 22,
+	SIGPOLL		= 23,
+	SIGXCPU		= 24,
+	SIGXFSZ		= 25,
+	SIGVTALRM	= 26,
+	SIGPROF		= 27,
+	SIGUSR1		= 30,
+	SIGUSR2		= 31,
+
+	SIGWINCH	= 28,
+
+	SIGRTMIN	= 32,
+	SIGRTMAX	= 64,
+};
+
 typedef int sig_atomic_t;
 
 typedef struct
@@ -310,44 +353,9 @@ extern int sigstack (struct sigstack *ss, struct sigstack *oss);
 
 ]])
 
-signal.SIG_ERR	= -1	-- Error return.
-signal.SIG_DFL	= 0	-- Default action.
-signal.SIG_IGN	= 1	-- Ignore signal.
-
-signal.SIGINT	= 2
-signal.SIGILL	= 4
-signal.SIGABRT	= 6
-signal.SIGFPE	= 8
-signal.SIGSEGV	= 11
-signal.SIGTERM	= 15
-
-signal.SIGHUP	= 1
-signal.SIGQUIT	= 3
-signal.SIGTRAP	= 5
-signal.SIGKILL	= 9
-signal.SIGBUS	= 10
-signal.SIGSYS	= 12
-signal.SIGPIPE	= 13
-signal.SIGALRM	= 14
-
-signal.SIGURG	= 16
-signal.SIGSTOP	= 17
-signal.SIGTSTP	= 18
-signal.SIGCONT	= 19
-signal.SIGCHLD	= 20
-signal.SIGTTIN	= 21
-signal.SIGTTOU	= 22
-signal.SIGPOLL	= 23
-signal.SIGXCPU	= 24
-signal.SIGXFSZ	= 25
-signal.SIGVTALRM	= 26
-signal.SIGPROF	= 27
-signal.SIGUSR1	= 30
-signal.SIGUSR2	= 31
-
-signal.SIGWINCH	= 28
-
-signal.SIGRTMIN	= 32
-signal.SIGRTMAX	= 64
-
-return signal
+return setmetatable(signal, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

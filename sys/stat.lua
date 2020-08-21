@@ -3,13 +3,34 @@
 --
 local stat = {}
 
-local ffi		= require('ffi') -- non-local for cache stuff below
-local bit		= require('bit')
-local bor, lshift	= bit.bor, bit.lshift
+local ffi	= require('ffi') -- non-local for cache stuff below
+local  C	=  ffi.C
+local bit	= require('bit')
+local  band	=  bit.band
 
 require('posix.sys.types')
 require('posix.time')
 
+ffi.cdef[[
+enum {
+	S_IFMT		= 0170000,
+
+	S_IFDIR		= 0040000,
+	S_IFCHR		= 0020000,
+	S_IFBLK		= 0060000,
+	S_IFREG		= 0100000,
+	S_IFIFO		= 0010000,
+	S_IFLNK		= 0120000,
+	S_IFSOCK	= 0140000,
+
+	S_ISUID 	= 04000,
+	S_ISGID 	= 02000,
+	S_ISVTX 	= 01000,
+	S_IREAD 	= 0400,
+	S_IWRITE	= 0200,
+	S_IEXEC		= 0100,
+};
+]]
 if ffi.arch == 'x64' then
 ffi.cdef([[
 struct stat {
@@ -79,33 +100,12 @@ int utimensat (int fd, const char *path, const struct timespec times[2],
 int futimens (int fd, const struct timespec times[2]);
 ]])
 
-function stat.octal(val)
-	return tonumber(val, 8)
-end
-
-stat.S_IFMT = stat.octal(0170000)
-
-stat.S_IFDIR = stat.octal(0040000)
-stat.S_IFCHR = stat.octal(0020000)
-stat.S_IFBLK = stat.octal(0060000)
-stat.S_IFREG = stat.octal(0100000)
-stat.S_IFIFO = stat.octal(0010000)
-stat.S_IFLNK = stat.octal(0120000)
-stat.S_IFSOCK = stat.octal(0140000)
-
 function stat.S_TYPEISMQ(buf) return buf.st_mode - buf.st_mode end
 function stat.S_TYPEISSEM(buf) return buf.st_mode - buf.st_mode end
 function stat.S_TYPEISSHM(buf) return buf.st_mode - buf.st_mode end
 
-stat.S_ISUID = stat.octal(04000)
-stat.S_ISGID = stat.octal(02000)
-stat.S_ISVTX = stat.octal(01000)
-stat.S_IREAD = stat.octal(0400)
-stat.S_IWRITE = stat.octal(0200)
-stat.S_IEXEC = stat.octal(0100)
-
 function stat.S_ISTYPE(mode, mask)
-	return bit.band(mode, stat.S_IFMT) == mask
+	return band(mode, stat.S_IFMT) == mask
 end
 
 function stat.S_ISDIR(mode) return stat.S_ISTYPE(mode, stat.S_IFDIR) end
@@ -139,16 +139,9 @@ function stat.mknodat(...)
 	return ffi.C.__xmknodat(0, ...)
 end
 
--- NOTE: should this become a standard part of all ffi modules?
-local cache = { }
-
-setmetatable(stat, {
-	__index = function(tbl, key) -- luacheck: ignore tbl
-		if not cache[key] then
-			cache[key] = assert(loadstring('return ffi.C.'..key))()
-		end
-		return cache[key]
+return setmetatable(stat, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
 	end,
 })
-
-return stat

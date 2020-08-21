@@ -9,17 +9,18 @@ local bit = require('bit')
 require('posix.sys.types')
 
 ffi.cdef([[
-	pid_t wait(int *wstatus);
-	pid_t waitpid(pid_t pid, int *wstatus, int options);
+enum {
+	WNOHANG		= 1,
+	WUNTRACED	= 2,
+
+	WSTOPPED	= 2,
+	WEXITED		= 4,
+	WCONTINUED	= 8,
+	WNOWAIT		= 0x01000000.
+};
+pid_t wait(int *wstatus);
+pid_t waitpid(pid_t pid, int *wstatus, int options);
 ]])
-
-wait.WNOHANG	= 1
-wait.WUNTRACED	= 2
-
-wait.WSTOPPED	= 2
-wait.WEXITED	= 4
-wait.WCONTINUED	= 8
-wait.WNOWAIT	= 0x01000000
 
 function wait.WEXITSTATUS(wstatus)
 	return bit.rshift(bit.band(wstatus, 0xff00), 8)
@@ -46,4 +47,9 @@ wait.WSTOPSIG = wait.WEXITSTATUS
 
 -- WIFCONTINUED(wstatus) not-implemented
 
-return wait
+return setmetatable(wait, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

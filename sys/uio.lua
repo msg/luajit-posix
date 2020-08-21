@@ -20,4 +20,9 @@ ffi.cdef([[
 		off_t offset) ;
 ]])
 
-return uio
+return setmetatable(uio, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

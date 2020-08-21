@@ -5,7 +5,7 @@ local types = { }
 
 local ffi = require('ffi')
 
-if ffi.arch == 'x64' then
+if ffi.arch == 'x64' or ffi.arch == 'arm64' then
 ffi.cdef('typedef unsigned long int nlink_t;')
 else
 ffi.cdef('typedef unsigned int nlink_t;')
@@ -116,4 +116,9 @@ struct sched_param {
 };
 ]])
 
-return types
+return setmetatable(types, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})

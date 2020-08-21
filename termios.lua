@@ -4,10 +4,124 @@
 local termios = { }
 
 local ffi	= require('ffi')
+local  C	=  ffi.C
 
 require('posix.sys.types')
 
 ffi.cdef([[
+enum {
+	VINTR		= 0,
+	VQUIT		= 1,
+	VERASE		= 2,
+	VKILL		= 3,
+	VEOF		= 4,
+	VTIME		= 5,
+	VMIN		= 6,
+	VSWTC		= 7,
+	VSTART		= 8,
+	VSTOP		= 9,
+	VSUSP		= 10,
+	VEOL		= 11,
+	VREPRINT	= 12,
+	VDISCARD	= 13,
+	VWERASE		= 14,
+	VLNEXT		= 15,
+	VEOL2		= 16,
+};
+
+enum {
+	IGNBRK	= 0000001,
+	BRKINT	= 0000002,
+	IGNPAR	= 0000004,
+	PARMRK	= 0000010,
+	INPCK	= 0000020,
+	ISTRIP	= 0000040,
+	INLCR	= 0000100,
+	IGNCR	= 0000200,
+	ICRNL	= 0000400,
+	IUCLC	= 0001000,
+	IXON	= 0002000,
+	IXANY	= 0004000,
+	IXOFF	= 0010000,
+	IMAXBEL	= 0020000,
+	IUTF8	= 0040000,
+};
+
+enum {
+	OPOST	= 0000001,
+	OLCUC	= 0000002,
+	ONLCR	= 0000004,
+	OCRNL	= 0000010,
+	ONOCR	= 0000020,
+	ONLRET	= 0000040,
+	OFILL	= 0000100,
+	OFDEL	= 0000200,
+	VTDLY	= 0040000,
+	VT0	= 0000000,
+	VT1	= 0040000,
+};
+
+enum {
+	 B0		= 0000000,
+	 B50		= 0000001,
+	 B75		= 0000002,
+	 B110		= 0000003,
+	 B134		= 0000004,
+	 B150		= 0000005,
+	 B200		= 0000006,
+	 B300		= 0000007,
+	 B600		= 0000010,
+	 B1200		= 0000011,
+	 B1800		= 0000012,
+	 B2400		= 0000013,
+	 B4800		= 0000014,
+	 B9600		= 0000015,
+	 B19200		= 0000016,
+	 B38400		= 0000017,
+	CSIZE		= 0000060,
+	  CS5		= 0000000,
+	  CS6		= 0000020,
+	  CS7		= 0000040,
+	  CS8		= 0000060,
+	CSTOPB		= 0000100,
+	CREAD		= 0000200,
+	PARENB		= 0000400,
+	PARODD		= 0001000,
+	HUPCL		= 0002000,
+	CLOCAL		= 0004000,
+	 B57600		= 0010001,
+	 B115200	= 0010002,
+	 B230400	= 0010003,
+	 B460800	= 0010004,
+	 B500000	= 0010005,
+	 B576000	= 0010006,
+	 B921600	= 0010007,
+	 B1000000	= 0010010,
+	 B1152000	= 0010011,
+	 B1500000	= 0010012,
+	 B2000000	= 0010013,
+	 B2500000	= 0010014,
+	 B3000000	= 0010015,
+	 B3500000	= 0010016,
+	 B4000000	= 0010017,
+	__MAX_BAUD	= B4000000,
+};
+
+enum {
+	TCOOFF		= 0,
+	TCOON		= 1,
+	TCIOFF		= 2,
+	TCION		= 3,
+
+	TCIFLUSH	= 0,
+	TCOFLUSH	= 1,
+	TCIOFLUSH	= 2,
+
+	TCSANOW		= 0,
+	TCSADRAIN	= 1,
+	TCSAFLUSH	= 2,
+};
+
 typedef unsigned char cc_t;
 typedef unsigned int speed_t;
 typedef unsigned int tcflag_t;
@@ -38,145 +152,9 @@ pid_t tcgetsid (int fd);
 
 ]])
 
-termios.CBAUD			= tonumber(000000010017, 8)
-termios.CBAUDEX			= tonumber(000000010000, 8)
-termios.CIBAUD			= tonumber(002003600000, 8)
-termios.CMSPAR			= tonumber(010000000000, 8)
-termios.CRTSCTS			= tonumber(020000000000, 8)
-termios.B57600			= tonumber(0010001, 8)
-termios.B115200			= tonumber(0010002, 8)
-termios.B230400			= tonumber(0010003, 8)
-termios.B460800			= tonumber(0010004, 8)
-termios.B500000			= tonumber(0010005, 8)
-termios.B576000			= tonumber(0010006, 8)
-termios.B921600			= tonumber(0010007, 8)
-termios.B1000000		= tonumber(0010010, 8)
-termios.B1152000		= tonumber(0010011, 8)
-termios.B1500000		= tonumber(0010012, 8)
-termios.B2000000		= tonumber(0010013, 8)
-termios.B2500000		= tonumber(0010014, 8)
-termios.B3000000		= tonumber(0010015, 8)
-termios.B3500000		= tonumber(0010016, 8)
-termios.B4000000		= tonumber(0010017, 8)
-termios.VINTR			= 0
-termios.VQUIT			= 1
-termios.VERASE			= 2
-termios.VKILL			= 3
-termios.VEOF			= 4
-termios.VTIME			= 5
-termios.VMIN			= 6
-termios.VSWTC			= 7
-termios.VSTART			= 8
-termios.VSTOP			= 9
-termios.VSUSP			= 10
-termios.VEOL			= 11
-termios.VREPRINT		= 12
-termios.VDISCARD		= 13
-termios.VWERASE			= 14
-termios.VLNEXT			= 15
-termios.VEOL2			= 16
-termios.CSIZE			= tonumber(0000060, 8)
-termios.CS5			= tonumber(0000000, 8)
-termios.CS6			= tonumber(0000020, 8)
-termios.CS7			= tonumber(0000040, 8)
-termios.CS8			= tonumber(0000060, 8)
-termios.CSTOPB			= tonumber(0000100, 8)
-termios.CREAD			= tonumber(0000200, 8)
-termios.PARENB			= tonumber(0000400, 8)
-termios.PARODD			= tonumber(0001000, 8)
-termios.HUPCL			= tonumber(0002000, 8)
-termios.CLOCAL			= tonumber(0004000, 8)
-termios.IGNBRK			= tonumber(0000001, 8)
-termios.BRKINT			= tonumber(0000002, 8)
-termios.IGNPAR			= tonumber(0000004, 8)
-termios.PARMRK			= tonumber(0000010, 8)
-termios.INPCK			= tonumber(0000020, 8)
-termios.ISTRIP			= tonumber(0000040, 8)
-termios.INLCR			= tonumber(0000100, 8)
-termios.IGNCR			= tonumber(0000200, 8)
-termios.ICRNL			= tonumber(0000400, 8)
-termios.IUCLC			= tonumber(0001000, 8)
-termios.IXON			= tonumber(0002000, 8)
-termios.IXANY			= tonumber(0004000, 8)
-termios.IXOFF			= tonumber(0010000, 8)
-termios.IMAXBEL			= tonumber(0020000, 8)
-termios.IUTF8			= tonumber(0040000, 8)
-termios.ISIG			= tonumber(0000001, 8)
-termios.ICANON			= tonumber(0000002, 8)
-termios.XCASE			= tonumber(0000004, 8)
-termios.ECHO			= tonumber(0000010, 8)
-termios.ECHOE			= tonumber(0000020, 8)
-termios.ECHOK			= tonumber(0000040, 8)
-termios.ECHONL			= tonumber(0000100, 8)
-termios.NOFLSH			= tonumber(0000200, 8)
-termios.TOSTOP			= tonumber(0000400, 8)
-termios.ECHOCTL			= tonumber(0001000, 8)
-termios.ECHOPRT			= tonumber(0002000, 8)
-termios.ECHOKE			= tonumber(0004000, 8)
-termios.FLUSHO			= tonumber(0010000, 8)
-termios.PENDIN			= tonumber(0040000, 8)
-termios.IEXTEN			= tonumber(0100000, 8)
-termios.EXTPROC			= tonumber(0200000, 8)
-termios.OPOST			= tonumber(0000001, 8)
-termios.OLCUC			= tonumber(0000002, 8)
-termios.ONLCR			= tonumber(0000004, 8)
-termios.OCRNL			= tonumber(0000010, 8)
-termios.ONOCR			= tonumber(0000020, 8)
-termios.ONLRET			= tonumber(0000040, 8)
-termios.OFILL			= tonumber(0000100, 8)
-termios.OFDEL			= tonumber(0000200, 8)
-termios.NLDLY			= tonumber(0000400, 8)
-termios.NL0			= tonumber(0000000, 8)
-termios.NL1			= tonumber(0000400, 8)
-termios.CRDLY			= tonumber(0003000, 8)
-termios.CR0			= tonumber(0000000, 8)
-termios.CR1			= tonumber(0001000, 8)
-termios.CR2			= tonumber(0002000, 8)
-termios.CR3			= tonumber(0003000, 8)
-termios.TABDLY			= tonumber(0014000, 8)
-termios.TAB0			= tonumber(0000000, 8)
-termios.TAB1			= tonumber(0004000, 8)
-termios.TAB2			= tonumber(0010000, 8)
-termios.TAB3			= tonumber(0014000, 8)
-termios.BSDLY			= tonumber(0020000, 8)
-termios.BS0			= tonumber(0000000, 8)
-termios.BS1			= tonumber(0020000, 8)
-termios.FFDLY			= tonumber(0100000, 8)
-termios.FF0			= tonumber(0000000, 8)
-termios.FF1			= tonumber(0100000, 8)
-termios.VTDLY			= tonumber(0040000, 8)
-termios.VT0			= tonumber(0000000, 8)
-termios.VT1			= tonumber(0040000, 8)
-termios.XTABS			= tonumber(0014000, 8)
-termios.NCCS			= 32
-termios.TCSANOW			= 0
-termios.TCSADRAIN		= 1
-termios.TCSAFLUSH		= 2
-termios.B0			= tonumber(0000000, 8)
-termios.B50			= tonumber(0000001, 8)
-termios.B75			= tonumber(0000002, 8)
-termios.B110			= tonumber(0000003, 8)
-termios.B134			= tonumber(0000004, 8)
-termios.B150			= tonumber(0000005, 8)
-termios.B200			= tonumber(0000006, 8)
-termios.B300			= tonumber(0000007, 8)
-termios.B600			= tonumber(0000010, 8)
-termios.B1200			= tonumber(0000011, 8)
-termios.B1800			= tonumber(0000012, 8)
-termios.B2400			= tonumber(0000013, 8)
-termios.B4800			= tonumber(0000014, 8)
-termios.B9600			= tonumber(0000015, 8)
-termios.B19200			= tonumber(0000016, 8)
-termios.B38400			= tonumber(0000017, 8)
-termios.EXTA			= termios.B19200
-termios.EXTB			= termios.B38400
-termios.TIOCSER_TEMT		= 0x01
-termios.TCOOFF			= 0
-termios.TCOON			= 1
-termios.TCIOFF			= 2
-termios.TCION			= 3
-termios.TCIFLUSH		= 0
-termios.TCOFLUSH		= 1
-termios.TCIOFLUSH		= 2
-
-return termios
+return setmetatable(termios, {
+	__index = function(t, n)
+		t[n] = C[n]
+		return t[n]
+	end,
+})
