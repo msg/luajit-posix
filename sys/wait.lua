@@ -3,8 +3,9 @@
 --
 local wait = { }
 
-local ffi = require('ffi')
-local bit = require('bit')
+local ffi	= require('ffi')
+local  C	=  ffi.C
+local bit	= require('bit')
 
 require('posix.sys.types')
 

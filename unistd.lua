@@ -4,6 +4,7 @@
 local unistd = { }
 
 local ffi	= require('ffi')
+local  C	=  ffi.C
 
 require('posix.sys.types')
 

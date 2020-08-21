@@ -3,7 +3,8 @@
 --
 local uio = { }
 
-local ffi = require('ffi')
+local ffi	= require('ffi')
+local  C	=  ffi.C
 
 require('posix.sys.types')
 
