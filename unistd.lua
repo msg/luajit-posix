@@ -50,6 +50,7 @@ int ftruncate (int fd, off_t length);
 char *getcwd (char *buf, size_t size);
 gid_t getegid (void);
 uid_t geteuid (void);
+gid_t getgid (void);
 int getgroups (int size, gid_t list[]);
 long int gethostid (void);
 int gethostname (char *name, size_t len);
