@@ -10,7 +10,7 @@ require('posix.sys.types')
 
 ffi.cdef([[
 enum {
-	MMAP_FAILED		= -1,
+	MAP_FAILED		= -1,
 
 	PROT_READ		= 0x1,
 	PROT_WRITE		= 0x2,
