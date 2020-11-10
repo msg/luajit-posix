@@ -101,6 +101,7 @@ int unlink (const char *name);
 int unlinkat (int fd, const char *name, int flag);
 typedef unsigned int useconds_t;
 int usleep(useconds_t usec);
+pid_t vfork (void);
 ssize_t write (int fd, const void *buf, size_t n);
 char *optarg;
 int optind;
