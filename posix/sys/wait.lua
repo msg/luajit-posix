@@ -18,6 +18,7 @@ enum {
 	WEXITED		= 4,
 	WCONTINUED	= 8,
 	WNOWAIT		= 0x01000000.
+	WCOREFLAG	= 0x80,
 };
 pid_t wait(int *wstatus);
 pid_t waitpid(pid_t pid, int *wstatus, int options);
@@ -39,9 +40,8 @@ function wait.WTERMSIG(wstatus)
 	return bit.band(wstatus, 0x7f)
 end
 
-wait.WCOREFLAG = 0x80
 function wait.WCOREDUMP(wstatus)
-	return bit.band(wstatus, wait.WCOREFLAG)
+	return bit.band(wstatus, C.WCOREFLAG)
 end
 
 wait.WSTOPSIG = wait.WEXITSTATUS
