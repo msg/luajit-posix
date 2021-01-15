@@ -7,6 +7,7 @@ local ffi	= require('ffi')
 local  C	=  ffi.C
 
 require('posix.sys.types')
+require('posix.signal')
 
 ffi.cdef([[
 enum {
@@ -28,6 +29,8 @@ struct pollfd {
 	short int revents;
 };
 int poll (struct pollfd *fds, nfds_t nfds, int timeout);
+int ppoll (struct pollfd *fds, nfds_t nfds,
+	struct timespec *timeout, sigset_t *sigmask);
 ]])
 
 return setmetatable(poll, {
