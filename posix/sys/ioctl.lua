@@ -48,7 +48,7 @@ local byte = string.byte
 
 function ioctl._IOC(dir, type, nr, size)
 	return bit.bor(bit.lshift(dir,  C._IOC_DIRSHIFT),
-			bit.lshift(byte(type), C._IOC_TYPESHIFT),
+			bit.lshift(type, C._IOC_TYPESHIFT),
 			bit.lshift(nr,   C._IOC_NRSHIFT),
 			bit.lshift(size, C._IOC_SIZESHIFT))
 end
