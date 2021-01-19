@@ -51,7 +51,7 @@ struct stat {
 	uint64_t glibc_reserved[3];
 };
 ]])
-else
+elseif ffi.arch == 'arm64' then
 ffi.cdef([[
 struct stat {
 	dev_t st_dev;
@@ -69,7 +69,7 @@ struct stat {
 	struct timespec st_mtim;
 	struct timespec st_ctim;
 	uint64_t glibc_reserved[3];
-};
+} __attribute__((packed));
 ]])
 end
 
