@@ -82,6 +82,8 @@ void freeaddrinfo (struct addrinfo *ai);
 const char *gai_strerror (int __ecode);
 int getaddrinfo (const char *name, const char *service,
 		const struct addrinfo *req, struct addrinfo **pai);
+struct hostent *gethostbyname(const char *name);
+struct hostent *gethostbyaddr(const void *addr, socklen_t len, int type);
 struct hostent *gethostent (void);
 int getnameinfo (const struct sockaddr *sa,
 	socklen_t salen, char *host, socklen_t hostlen, char *serv,
