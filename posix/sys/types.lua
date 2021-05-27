@@ -74,7 +74,7 @@ typedef union {
 		short __elision;
 		__pthread_list_t __list;
 	} __data;
-	char __size[40];
+	char __size[48];
 	long int __align;
 } pthread_mutex_t;
 typedef union {
