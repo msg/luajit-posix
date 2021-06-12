@@ -150,6 +150,13 @@ int tcflush (int fd, int queue_selector);
 int tcflow (int fd, int action);
 pid_t tcgetsid (int fd);
 
+struct winsize {
+	unsigned short ws_row;
+	unsigned short ws_col;
+	unsigned short ws_xpixel;
+	unsigned short ws_ypixel;
+};
+
 ]])
 
 return setmetatable(termios, {
