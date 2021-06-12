@@ -1,5 +1,5 @@
 --
--- p o s i x . f c n t l
+-- l i n u x . f c n t l
 --
 local fcntl = { }
 
