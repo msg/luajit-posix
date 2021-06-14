@@ -7,7 +7,7 @@ local ffi	= require('ffi')
 local  C	=  ffi.C
 local bit	= require('bit')
 
-require('posix.sys.types')
+		  require('posix.sys.types')
 
 ffi.cdef([[
 enum {

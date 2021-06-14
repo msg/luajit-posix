@@ -8,8 +8,8 @@ local  C	=  ffi.C
 local bit	= require('bit')
 local  band	=  bit.band
 
-require('posix.sys.types')
-require('posix.time')
+		  require('posix.sys.types')
+		  require('posix.time')
 
 ffi.cdef[[
 enum {

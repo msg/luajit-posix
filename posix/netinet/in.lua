@@ -6,8 +6,8 @@ local netinet = { }
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-require('posix.sys.types')
-require('posix.sys.socket')
+		  require('posix.sys.types')
+		  require('posix.sys.socket')
 
 ffi.cdef([[
 enum {

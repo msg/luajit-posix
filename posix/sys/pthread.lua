@@ -6,8 +6,8 @@ local pthread = {}
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-require('posix.sys.types')
-require('posix.time')
+		  require('posix.sys.types')
+		  require('posix.time')
 
 pthread.lib = ffi.load('pthread')
 

@@ -6,8 +6,8 @@ local poll = { }
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-require('posix.sys.types')
-require('posix.signal')
+		  require('posix.sys.types')
+		  require('posix.signal')
 
 ffi.cdef([[
 enum {

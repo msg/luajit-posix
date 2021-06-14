@@ -6,7 +6,7 @@ local statfs = { }
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-require('posix.sys.types')
+		  require('posix.sys.types')
 
 ffi.cdef([[
 	typedef struct { int __val[2]; } __fsid_t;

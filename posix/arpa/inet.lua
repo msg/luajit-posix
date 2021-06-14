@@ -5,8 +5,8 @@ local inet = { }
 
 local ffi		= require('ffi')
 
-require('posix.netinet.in')
-require('posix.sys.types')
+			  require('posix.netinet.in')
+			  require('posix.sys.types')
 
 ffi.cdef([[
 	uint32_t ntohl (uint32_t netlong);

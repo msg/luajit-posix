@@ -6,8 +6,8 @@ local socket = { }
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-require('posix.sys.types')
-require('posix.sys.time')
+		  require('posix.sys.types')
+		  require('posix.sys.time')
 
 ffi.cdef([[
 enum {

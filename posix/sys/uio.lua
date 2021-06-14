@@ -6,7 +6,7 @@ local uio = { }
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-require('posix.sys.types')
+		  require('posix.sys.types')
 
 ffi.cdef([[
 	typedef struct iovec {

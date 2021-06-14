@@ -5,7 +5,7 @@ local stdio = { }
 
 local ffi	= require('ffi')
 
-require('posix.sys.types')
+		  require('posix.sys.types')
 
 ffi.cdef([[
 int printf(const char *format, ...);
