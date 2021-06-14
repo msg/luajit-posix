@@ -6,7 +6,8 @@ local time = { }
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-require('posix.sys.types')
+		  require('posix.sys.types')
+		  require('posix.signal')
 
 ffi.cdef([[
 enum {
@@ -34,6 +35,11 @@ int select (int __nfds, fd_set *____readfds,
      fd_set *____writefds,
      fd_set *____exceptfds,
      struct timeval *____timeout);
+int pselect (int __nfds, fd_set *____readfds,
+     fd_set *____writefds,
+     fd_set *____exceptfds,
+     const struct timeval *____timeout,
+     const sigset_t *____sigmask);
 int utimes (const char *__file, const struct timeval __tvp[2]);
 ]])
 
