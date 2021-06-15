@@ -6,7 +6,7 @@ local types = { }
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-if ffi.arch == 'x64' or ffi.arch == 'arm64' then
+if ffi.arch == 'x64' then
 ffi.cdef('typedef unsigned long int nlink_t;')
 else
 ffi.cdef('typedef unsigned int nlink_t;')
