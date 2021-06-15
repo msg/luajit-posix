@@ -19,9 +19,17 @@ pid_t forkpty(int *amaster, int *aslave, char *name,
 		const struct winsize *winp);
 ]])
 
+local lib	= ffi.load('util')
+pty.lib		= lib
+
 return setmetatable(pty, {
 	__index = function(t, n)
-		t[n] = C[n]
+		local ok, v = pcall(function()
+			return lib[n]
+		end)
+		if ok then
+			return v
+		end
 		return t[n]
 	end,
 })
