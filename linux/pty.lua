@@ -14,7 +14,7 @@ ffi.cdef([[
 int openpty(int *amaster, int *aslave, char *name,
 		const struct termios *termp,
 		const struct winsize *winp);
-pid_t forkpty(int *amaster, int *aslave, char *name,
+pid_t forkpty(int *amaster, char *name,
 		const struct termios *termp,
 		const struct winsize *winp);
 ]])
