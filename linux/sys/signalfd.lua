@@ -6,12 +6,12 @@ local signalfd = { }
 local ffi	= require('ffi')
 local  C	=  ffi.C
 
-		  require('posix.sys.signal')
+		  require('posix.signal')
 		  require('posix.sys.types')
 
 ffi.cdef([[
 
-struct signafd_siginfo {
+struct signalfd_siginfo {
 	uint32_t	ssi_signo;
 	int32_t 	ssi_errno;
 	int32_t		ssi_code;
@@ -27,8 +27,8 @@ struct signafd_siginfo {
 	uint64_t	ssi_utime;
 	uint64_t	ssi_stime;
 	uint64_t	ssi_addr;
-	uint64_t	ssi_lsb;
-	uint64_t	__pad2;
+	uint16_t	ssi_addr_lsb;
+	uint16_t	__pad2;
 	int32_t		ssi_syscall;
 	uint64_t	ssi_call_addr;
 	uint32_t	ssi_arch;
