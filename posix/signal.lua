@@ -239,6 +239,12 @@ struct sigaction {
 	void (*sa_restorer) (void);
 };
 
+enum {
+	SIG_BLOCK	= 0,
+	SIG_UNBLOCK	= 1,
+	SIG_SETMASK	= 2,
+};
+
 extern int sigprocmask (int how, const sigset_t * set, sigset_t *oset);
 extern int sigsuspend (const sigset_t *set);
 extern int sigaction (int sig, const struct sigaction *act,
