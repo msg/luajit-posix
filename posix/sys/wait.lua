@@ -17,7 +17,7 @@ enum {
 	WSTOPPED	= 2,
 	WEXITED		= 4,
 	WCONTINUED	= 8,
-	WNOWAIT		= 0x01000000.
+	WNOWAIT		= 0x01000000,
 	WCOREFLAG	= 0x80,
 };
 pid_t wait(int *wstatus);
