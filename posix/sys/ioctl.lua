@@ -3,9 +3,14 @@
 --
 local ioctl = { }
 
-local ffi 	= require('ffi')
+local ffi	= require('ffi')
 local  C	=  ffi.C
-local bit 	= require('bit')
+local  sizeof	=  ffi.sizeof
+local bit	= require('bit')
+local  band	=  bit.band
+local  bor	=  bit.bor
+local  lshift	=  bit.lshift
+local  rshift	=  bit.rshift
 
 ffi.cdef([[
 enum {
@@ -44,17 +49,15 @@ enum {
 int ioctl(int fd, unsigned long int req, ...);
 ]])
 
-local byte = string.byte
-
 function ioctl._IOC(dir, type, nr, size)
-	return bit.bor(bit.lshift(dir,  C._IOC_DIRSHIFT),
-			bit.lshift(type, C._IOC_TYPESHIFT),
-			bit.lshift(nr,   C._IOC_NRSHIFT),
-			bit.lshift(size, C._IOC_SIZESHIFT))
+	return bor(lshift(dir,  C._IOC_DIRSHIFT),
+		   lshift(type, C._IOC_TYPESHIFT),
+		   lshift(nr,   C._IOC_NRSHIFT),
+		   lshift(size, C._IOC_SIZESHIFT))
 end
 
 function ioctl._IOC_TYPECHECK(t)
-	return ffi.sizeof(t)
+	return sizeof(t)
 end
 
 -- used to create numbers
@@ -68,7 +71,7 @@ function ioctl._IOW(type,nr,size)
 	return ioctl._IOC(C._IOC_WRITE, type, nr, ioctl._IOC_TYPECHECK(size))
 end
 function ioctl._IOWR(type,nr,size)
-	return ioctl._IOC(bit.bor(C._IOC_READ, C._IOC_WRITE),
+	return ioctl._IOC(bor(C._IOC_READ, C._IOC_WRITE),
 			type, nr, ioctl._IOC_TYPECHECK(size))
 end
 function ioctl._IOR_BAD(type, nr, size)
@@ -78,20 +81,20 @@ function ioctl._IOW_BAD(type, nr, size)
 	return ioctl._IOC(C._IOC_WRITE, type, nr, #size)
 end
 function ioctl._IOWR_BAD(type,nr,size)
-	return ioctl._IOC(bit.bor(C._IOC_READ, C._IOC_WRITE), type, nr,#size)
+	return ioctl._IOC(bor(C._IOC_READ, C._IOC_WRITE), type, nr,#size)
 end
 
 function ioctl._IOC_DIR(nr)
-	return bit.band(bit.rshift(nr, C._IOC_DIRSHIFT), C._IOC_DIRMASK)
+	return band(rshift(nr, C._IOC_DIRSHIFT), C._IOC_DIRMASK)
 end
 function ioctl._IOC_TYPE(nr)
-	return bit.band(bit.rshift(nr, C._IOC_TYPESHIFT), C._IOC_TYPEMASK)
+	return band(rshift(nr, C._IOC_TYPESHIFT), C._IOC_TYPEMASK)
 end
 function ioctl._IOC_NR(nr)
-	return bit.band(bit.rshift(nr, C._IOC_NRSHIFT), C._IOC_NRMASK)
+	return band(rshift(nr, C._IOC_NRSHIFT), C._IOC_NRMASK)
 end
 function ioctl._IOC_SIZE(nr)
-	return bit.band(bit.rshift(nr, C._IOC_SIZESHIFT), C._IOC_SIZEMASK)
+	return band(rshift(nr, C._IOC_SIZESHIFT), C._IOC_SIZEMASK)
 end
 
 return setmetatable(ioctl, {
