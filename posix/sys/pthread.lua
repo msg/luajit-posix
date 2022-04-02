@@ -9,7 +9,12 @@ local  C	=  ffi.C
 		  require('posix.sys.types')
 		  require('posix.time')
 
-pthread.lib = ffi.load('pthread')
+pcall(function()
+	pthread.lib	= ffi.load('pthread')
+end)
+if pthread.lib == nil then
+	pthread.lib = C
+end
 
 ffi.cdef([[
 enum {
