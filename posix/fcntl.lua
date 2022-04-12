@@ -32,7 +32,6 @@ enum {
 	O_EXCL		= 0200,
 	O_NOCTTY	= 0400,
 	O_TRUNC		= 01000,
-	O_DIRECT	= 040000,
 	O_NOFOLLOW	= 0400000,
 	O_CLOEXEC	= 02000000,
 
@@ -57,7 +56,23 @@ enum {
 	POSIX_FADV_DONTNEED	= 4,
 	POSIX_FADV_NOREUSE	= 5,
 };
-
+]])
+if ffi.arch == 'x64' then
+ffi.cdef([[
+enum {
+	O_DIRECT	= 0040000,
+	O_DIRECTORY	= 0200000,
+};
+]])
+elseif ffi.arch == 'arm64' then
+ffi.cdef([[
+enum {
+	O_DIRECT	= 0200000,
+	O_DIRECTORY	= 0040000,
+};
+]])
+end
+ffi.cdef([[
 struct flock {
 	short int l_type;
 	short int l_whence;
