@@ -19,7 +19,7 @@ enum {
 
 int eventfd(unsigned int count, int flags);
 int eventfd_read(int fd, eventfd_t *value);
-int eventfd_write(int fd, eventfd_t *value);
+int eventfd_write(int fd, eventfd_t value);
 ]])
 
 return setmetatable(eventfd, {
