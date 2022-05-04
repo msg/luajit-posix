@@ -14,13 +14,14 @@ enum {
 	POLLIN		= 0x001,
 	POLLPRI		= 0x002,
 	POLLOUT		= 0x004,
+	POLLERR		= 0x008,
+	POLLHUP		= 0x010,
+	POLLNVAL	= 0x020,
+	/* _XOPEN_SOURCE */
 	POLLRDNORM	= 0x040,
 	POLLRDBAND	= 0x080,
 	POLLWRNORM	= 0x100,
 	POLLWRBAND	= 0x200,
-	POLLERR		= 0x008,
-	POLLHUP		= 0x010,
-	POLLNVAL	= 0x020,
 };
 typedef unsigned long int nfds_t;
 struct pollfd {
