@@ -20,6 +20,20 @@ enum {
 	DT_SOCK			= 12,
 	DT_WHT			= 14,
 };
+]])
+
+if ffi.os == 'OSX' and ffi.arch == 'x64' then
+ffi.cdef([[
+struct dirent {
+	uint32_t		d_ino;
+	uint16_t		d_reclen;
+	uint8_t			d_type;
+	uint8_t			d_namlen;
+	char			d_name[256];
+};
+]])
+else
+ffi.cdef([[
 struct dirent {
 	ino_t			d_ino;
 	off_t			d_off;
@@ -27,6 +41,10 @@ struct dirent {
 	unsigned char		d_type;
 	char			d_name[0];
 };
+]])
+end
+
+ffi.cdef([[
 typedef char DIR; /* just a handle */
 
 int alphasort(const struct dirent **, const struct dirent **);
