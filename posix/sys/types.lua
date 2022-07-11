@@ -26,7 +26,7 @@ typedef uint64_t dev_t;
 end
 
 ffi.cdef([[
-typedef int64_t blksize_t;
+typedef int32_t blksize_t;
 typedef int64_t blkcnt_t;
 typedef int64_t clock_t;
 typedef int32_t clockid_t;

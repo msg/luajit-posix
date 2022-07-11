@@ -44,11 +44,12 @@ struct stat {
 	dev_t st_rdev;
 	off_t st_size;
 	blksize_t st_blksize;
+	int __pad2;
 	blkcnt_t st_blocks;
 	struct timespec st_atim;
 	struct timespec st_mtim;
 	struct timespec st_ctim;
-	uint64_t glibc_reserved[3];
+	uint64_t glibc_reserved[2];
 };
 ]])
 elseif ffi.arch == 'arm64' then
