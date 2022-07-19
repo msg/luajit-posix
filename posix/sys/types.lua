@@ -16,17 +16,18 @@ typedef int32_t dev_t;
 		ffi.cdef([[
 typedef uint64_t nlink_t;
 typedef uint64_t  dev_t;
+typedef int64_t blksize_t;
 		]])
 	end
 else
 ffi.cdef([[
 typedef uint32_t nlink_t;
 typedef uint64_t dev_t;
+typedef int32_t blksize_t;
 ]])
 end
 
 ffi.cdef([[
-typedef int32_t blksize_t;
 typedef int64_t blkcnt_t;
 typedef int64_t clock_t;
 typedef int32_t clockid_t;
