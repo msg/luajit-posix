@@ -29,12 +29,23 @@ enum {
 	EAI_NONAME	= -2,
 	EAI_AGAIN	= -3,
 	EAI_FAIL	= -4,
+	EAI_NODATA	= -5,
 	EAI_FAMILY	= -6,
 	EAI_SOCKTYPE	= -7,
 	EAI_SERVICE	= -8,
+	EAI_ADDRFAMILY	= -9,
 	EAI_MEMORY	= -10,
 	EAI_SYSTEM	= -11,
 	EAI_OVERFLOW	= -12,
+	EAI_INPROGRESS	= -100,
+	EAI_CANCELLED	= -101,
+	EAI_NOTCANCELLED	= -102,
+	EAI_ALLDONE	= -103,
+	EAI_INTR	= -104,
+	EAI_IDN_ENCODE	= -105,
+
+	GAI_WAIT	= 0,
+	GAI_NOWAIT	= 1,
 };
 
 struct hostent {
@@ -74,6 +85,12 @@ struct addrinfo {
 	char *ai_canonname;
 	struct addrinfo *ai_next;
 };
+struct gaicb {
+	const char		*ar_name;
+	const char		*ar_service;
+	const struct addrinfo	*ar_request;
+	struct addrinfo		*ar_result;
+};
 void endhostent (void);
 void endnetent (void);
 void endprotoent (void);
@@ -101,6 +118,12 @@ void sethostent (int stay_open);
 void setnetent (int stay_open);
 void setprotoent (int stay_open);
 void setservent (int stay_open);
+int getaddrinfo_a(int mode, struct gaicb *list[restrict],
+		int nitems, struct sigevent *restrict sevp);
+int gai_suspend(const struct gaicb *const list[], int nitems,
+		const struct timespec *timeout);
+int gai_error(struct gaicb *req);
+int gai_cancel(struct gaicb *req);
 ]])
 
 return setmetatable(netdb, {
