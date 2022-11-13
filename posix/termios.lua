@@ -10,55 +10,39 @@ local  C	=  ffi.C
 
 ffi.cdef([[
 enum {
-	VINTR		= 0,
-	VQUIT		= 1,
-	VERASE		= 2,
-	VKILL		= 3,
-	VEOF		= 4,
-	VTIME		= 5,
-	VMIN		= 6,
-	VSWTC		= 7,
-	VSTART		= 8,
-	VSTOP		= 9,
-	VSUSP		= 10,
-	VEOL		= 11,
-	VREPRINT	= 12,
-	VDISCARD	= 13,
-	VWERASE		= 14,
-	VLNEXT		= 15,
-	VEOL2		= 16,
+	IGNBRK	= 0000001, /* Ignore break condition.  */
+	BRKINT	= 0000002, /* Signal interrupt on break.  */
+	IGNPAR	= 0000004, /* Ignore characters with parity errors.  */
+	PARMRK	= 0000010, /* Mark parity and framing errors.  */
+	INPCK	= 0000020, /* Enable input parity check.  */
+	ISTRIP	= 0000040, /* Strip 8th bit off characters.  */
+	INLCR	= 0000100, /* Map NL to CR on input.  */
+	IGNCR	= 0000200, /* Ignore CR.  */
+	ICRNL	= 0000400, /* Map CR to NL on input.  */
+	IUCLC	= 0001000, /* Map uppercase characters to lowercase on input
+			(not in POSIX).  */
+	IXON	= 0002000, /* Enable start/stop output control.  */
+	IXANY	= 0004000, /* Enable any character to restart output.  */
+	IXOFF	= 0010000, /* Enable start/stop input control.  */
+	IMAXBEL	= 0020000, /* Ring bell when input queue is full
+			(not in POSIX).  */
+	IUTF8	= 0040000, /* Input is UTF8 (not in POSIX).  */
 };
 
 enum {
-	IGNBRK	= 0000001,
-	BRKINT	= 0000002,
-	IGNPAR	= 0000004,
-	PARMRK	= 0000010,
-	INPCK	= 0000020,
-	ISTRIP	= 0000040,
-	INLCR	= 0000100,
-	IGNCR	= 0000200,
-	ICRNL	= 0000400,
-	IUCLC	= 0001000,
-	IXON	= 0002000,
-	IXANY	= 0004000,
-	IXOFF	= 0010000,
-	IMAXBEL	= 0020000,
-	IUTF8	= 0040000,
-};
+	OPOST	= 0000001, /* Post-process output.  */
+	OLCUC	= 0000002, /* Map lowercase characters to uppercase on output.
+			    (not in POSIX).  */
+	ONLCR	= 0000004, /* Map NL to CR-NL on output.  */
+	OCRNL	= 0000010, /* Map CR to NL on output.  */
+	ONOCR	= 0000020, /* No CR output at column 0.  */
+	ONLRET	= 0000040, /* NL performs CR function.  */
+	OFILL	= 0000100, /* Use fill characters for delay.  */
+	OFDEL	= 0000200, /* Fill is DEL.  */
 
-enum {
-	OPOST	= 0000001,
-	OLCUC	= 0000002,
-	ONLCR	= 0000004,
-	OCRNL	= 0000010,
-	ONOCR	= 0000020,
-	ONLRET	= 0000040,
-	OFILL	= 0000100,
-	OFDEL	= 0000200,
-	VTDLY	= 0040000,
-	VT0	= 0000000,
-	VT1	= 0040000,
+	VTDLY	= 0040000, /* Select vertical-tab delays:  */
+	  VT0	= 0000000, /* Vertical-tab delay type 0.  */
+	  VT1	= 0040000, /* Vertical-tab delay type 1.  */
 };
 
 enum {
@@ -105,6 +89,40 @@ enum {
 	 B3500000	= 0010016,
 	 B4000000	= 0010017,
 	__MAX_BAUD	= B4000000,
+};
+
+enum {
+	ISIG	= 0000001,  /* Enable signals.  */
+	ICANON	= 0000002,  /* Canonical input (erase and kill processing).  */
+	ECHO	= 0000010,  /* Enable echo.  */
+	ECHOE	= 0000020,  /* Echo erase character as error-correcting
+			     backspace.  */
+	ECHOK	= 0000040,  /* Echo KILL.  */
+	ECHONL	= 0000100,  /* Echo NL.  */
+	NOFLSH	= 0000200,  /* Disable flush after interrupt or quit.  */
+	TOSTOP	= 0000400,  /* Send SIGTTOU for background output.  */
+	IEXTEN	= 0100000,  /* Enable implementation-defined input
+			     processing.  */
+};
+
+enum {
+	VINTR		= 0,
+	VQUIT		= 1,
+	VERASE		= 2,
+	VKILL		= 3,
+	VEOF		= 4,
+	VTIME		= 5,
+	VMIN		= 6,
+	VSWTC		= 7,
+	VSTART		= 8,
+	VSTOP		= 9,
+	VSUSP		= 10,
+	VEOL		= 11,
+	VREPRINT	= 12,
+	VDISCARD	= 13,
+	VWERASE		= 14,
+	VLNEXT		= 15,
+	VEOL2		= 16,
 };
 
 enum {
