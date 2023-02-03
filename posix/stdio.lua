@@ -24,6 +24,8 @@ int sprintf(char *s, const char *format, ...);
 int snprintf(char *s, size_t maxlen, const char *format, ...);
 int perror(char *s);
 
+int dprintf(int fd, const char *format, ...);
+
 int rename(const char *old, const char *new);
 int renameat(int oldfd, const char *old, int newfd, const char *new);
 int renameat2(int oldfd, const char *old, int newfd, const char *new, int flags);
