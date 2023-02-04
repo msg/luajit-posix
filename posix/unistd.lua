@@ -22,6 +22,11 @@ enum {
 	SEEK_SET	= 0,
 	SEEK_CUR	= 1,
 	SEEK_END	= 2,
+
+	F_ULOCK		= 0,
+	F_LOCK		= 1,
+	F_TLOCK		= 2,
+	F_TEST		= 3,
 };
 int access (const char *name, int type);
 unsigned int alarm (unsigned int seconds);
