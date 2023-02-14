@@ -15,9 +15,9 @@ enum {
 	STDERR_FILENO	= 2,
 
 	R_OK		= 4,
-	W_OK		= 3,
-	X_OK		= 2,
-	F_OK		= 1,
+	W_OK		= 2,
+	X_OK		= 1,
+	F_OK		= 0,
 
 	SEEK_SET	= 0,
 	SEEK_CUR	= 1,
