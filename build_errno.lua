@@ -54,11 +54,10 @@ for _,entry in ipairs(entries) do
 	local name
 	if entry.errno == last then
 		-- ignore
-	elseif entry.errno ~= last + 1 then
-		name = sprintf('\t[%d] = "%s",\t-- %d',
-				entry.errno, entry.name, entry.errno)
 	else
 		name = sprintf('\t"%s",\t-- %d', entry.name, entry.errno)
+		name = sprintf('\t[%d] = "%s",\t-- %d',
+				entry.errno, entry.name, entry.errno)
 	end
 	last = entry.errno
 	table.insert(names, name)
