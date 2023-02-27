@@ -2,9 +2,9 @@
 std = 'luajit'
 
 include_files = {
-	"posix/*.lua",
-	"posix/arpa/*.lua",
-	"posix/netinet/*.lua",
-	"posix/sys/*.lua",
-	"linux/sys/*.lua",
+	"lua/posix/*.lua",
+	"lua/posix/arpa/*.lua",
+	"lua/posix/netinet/*.lua",
+	"lua/posix/sys/*.lua",
+	"lua/linux/sys/*.lua",
 }
