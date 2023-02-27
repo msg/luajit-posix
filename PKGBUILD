@@ -1,6 +1,6 @@
 # Maintainer: msg
 pkgname=luajit-posix
-pkgver=2021.05.12.r2.bd9d1d3
+pkgver=2023.02.14.r0.bdf2258
 pkgrel=1
 pkgdesc="A ffi posix interface"
 arch=('any')
@@ -20,12 +20,14 @@ package() {
 	cd $startdir
 
 	lmod="$pkgdir$(pkg-config --variable=INSTALL_LMOD luajit)"
+	(
+	cd lua
 	for i in $(find posix -type f -name '*.lua'); do
 		install -D -m644 "$i" "$lmod/$i"
 	done
 	for i in $(find linux -type f -name '*.lua'); do
 		install -D -m644 "$i" "$lmod/$i"
 	done
-	make install PREFIX="$lmod"
+	)
 }
 
