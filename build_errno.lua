@@ -38,7 +38,6 @@ local entries = { }
 local f = io.popen('errno -l')
 for line in f:lines() do
 	local fields = { line:match('(%S+)%s+(%S+)%s(.*)') }
-	--local fields = strings.split(line, ' ', 3)
 	table.insert(entries, { name=fields[1], errno=tonumber(fields[2]) })
 end
 table.sort(entries, function(a,b) return a.errno < b.errno end)
@@ -69,4 +68,3 @@ else
 end
 
 f:write(format(template, join(enums, '\n'), join(names, '\n')))
---f:close()
