@@ -20,14 +20,11 @@ package() {
 	cd $startdir
 
 	lmod="$pkgdir$(pkg-config --variable=INSTALL_LMOD luajit)"
-	(
-	cd lua
-	for i in $(find posix -type f -name '*.lua'); do
+	for i in $(cd lua;find posix -type f -name '*.lua'); do
 		install -D -m644 "$i" "$lmod/$i"
 	done
-	for i in $(find linux -type f -name '*.lua'); do
+	for i in $(cd lua;find linux -type f -name '*.lua'); do
 		install -D -m644 "$i" "$lmod/$i"
 	done
-	)
 }
 
