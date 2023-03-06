@@ -1,11 +1,9 @@
 #!/usr/bin/luajit
 
-local stdio	= require('useful.stdio')
-local  printf	=  stdio.printf
-local  sprintf	=  stdio.sprintf
 local strings	= require('useful.strings')
 
-local join	= table.concat
+local  format	=  string.format
+local  join	=  table.concat
 
 local template = [=[
 --
@@ -39,7 +37,8 @@ return setmetatable(errno, {
 local entries = { }
 local f = io.popen('errno -l')
 for line in f:lines() do
-	local fields = strings.split(line, ' ', 3)
+	local fields = { line:match('(%S+)%s+(%S+)%s(.*)') }
+	--local fields = strings.split(line, ' ', 3)
 	table.insert(entries, { name=fields[1], errno=tonumber(fields[2]) })
 end
 table.sort(entries, function(a,b) return a.errno < b.errno end)
@@ -49,14 +48,14 @@ local last = 0
 for _,entry in ipairs(entries) do
 	local len8 = math.floor(#entry.name / 8)
 	local tabs = string.rep('\t', 3-len8)
-	local enum = sprintf('\t%s%s= %d,', entry.name, tabs, entry.errno)
+	local enum = format('\t%s%s= %d,', entry.name, tabs, entry.errno)
 	table.insert(enums, enum)
 	local name
 	if entry.errno == last then
 		-- ignore
 	else
-		name = sprintf('\t"%s",\t-- %d', entry.name, entry.errno)
-		name = sprintf('\t[%d] = "%s",\t-- %d',
+		name = format('\t"%s",\t-- %d', entry.name, entry.errno)
+		name = format('\t[%d] = "%s",\t-- %d',
 				entry.errno, entry.name, entry.errno)
 	end
 	last = entry.errno
@@ -69,5 +68,5 @@ else
 	f = io.open(arg[1], 'w')
 end
 
-f:write(sprintf(template, join(enums, '\n'), join(names, '\n')))
+f:write(format(template, join(enums, '\n'), join(names, '\n')))
 --f:close()
