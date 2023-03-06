@@ -6,3 +6,5 @@ all:
 	nfpm package -f luajit-posix.yaml -p deb -t .
 	nfpm package -f luajit-posix.yaml -p rpm -t .
 
+clean:
+	rm *.rpm *.deb *.apk *.pkg.tar.*
