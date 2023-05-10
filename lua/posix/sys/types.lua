@@ -39,6 +39,7 @@ typedef uint64_t ino_t;
 typedef int32_t key_t;
 typedef uint32_t mode_t;
 typedef int64_t off_t;
+typedef int64_t off64_t;
 typedef int32_t pid_t;
 typedef union pthread_attr_t {
 	char __size[56];
@@ -119,7 +120,6 @@ typedef union {
 } pthread_rwlockattr_t;
 typedef volatile int32_t pthread_spinlock_t;
 typedef uint64_t pthread_t;
-typedef uint64_t size_t;
 typedef int64_t ssize_t;
 typedef int64_t suseconds_t;
 typedef int64_t time_t;
