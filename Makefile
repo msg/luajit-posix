@@ -1,10 +1,13 @@
 
+PACKAGE=luajit-posix.yaml
+
 all:
-	sed -i -e "s/version.*/version: \"`git describe --long|sed -e 's/-/./g'`\"/" luajit-posix.yaml
-	nfpm package -f luajit-posix.yaml -p archlinux -t .
-	nfpm package -f luajit-posix.yaml -p apk -t .
-	nfpm package -f luajit-posix.yaml -p deb -t .
-	nfpm package -f luajit-posix.yaml -p rpm -t .
+	sed -i -e "s/version.*/version: \"`git describe --long| \
+		sed -e 's/-/./g'`\"/" $(PACKAGE)
+	nfpm package -f $(PACKAGE) -p archlinux -t .
+	nfpm package -f $(PACKAGE) -p apk -t .
+	nfpm package -f $(PACKAGE) -p deb -t .
+	nfpm package -f $(PACKAGE) -p rpm -t .
 
 clean:
 	rm *.rpm *.deb *.apk *.pkg.tar.*
