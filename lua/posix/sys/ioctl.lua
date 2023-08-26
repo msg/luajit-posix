@@ -3,14 +3,16 @@
 --
 local ioctl = { }
 
-local ffi	= require('ffi')
-local  C	=  ffi.C
-local  sizeof	=  ffi.sizeof
-local bit	= require('bit')
-local  band	=  bit.band
-local  bor	=  bit.bor
-local  lshift	=  bit.lshift
-local  rshift	=  bit.rshift
+local  byte		=  string.byte
+
+local ffi		= require('ffi')
+local  C		=  ffi.C
+local  sizeof		=  ffi.sizeof
+local bit		= require('bit')
+local  band		=  bit.band
+local  bor		=  bit.bor
+local  lshift		=  bit.lshift
+local  rshift		=  bit.rshift
 
 ffi.cdef([[
 enum {
@@ -49,9 +51,10 @@ enum {
 int ioctl(int fd, unsigned long int req, ...);
 ]])
 
-function ioctl._IOC(dir, type, nr, size)
+function ioctl._IOC(dir, t, nr, size)
+	t = type(t) == 'string' and byte(t) or t
 	return bor(lshift(dir,  C._IOC_DIRSHIFT),
-		   lshift(type, C._IOC_TYPESHIFT),
+		   lshift(t, C._IOC_TYPESHIFT),
 		   lshift(nr,   C._IOC_NRSHIFT),
 		   lshift(size, C._IOC_SIZESHIFT))
 end
