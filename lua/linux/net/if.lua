@@ -64,24 +64,22 @@ enum {
 }
 
 struct ifreq {
-	union {
-		char ifrn_name[16];
-	} ifr_ifrn;
+	char ifr_name[16];
 
 	union {
-		struct sockaddr ifru_addr;
-		struct sockaddr ifru_dstaddr;
-		struct sockaddr ifru_broadaddr;
-		struct sockaddr ifru_netmask;
-		struct sockaddr ifru_hwaddr;
-		short int ifru_flags;
-		int ifru_ivalue;
-		int ifru_mtu;
-		struct ifmap ifru_map;
-		char ifru_slave[16];
-		char ifru_newname[16];
-		char *ifru_data;
-	} ifr_ifru;
+		struct sockaddr ifr_addr;
+		struct sockaddr ifr_dstaddr;
+		struct sockaddr ifr_broadaddr;
+		struct sockaddr ifr_netmask;
+		struct sockaddr ifr_hwaddr;
+		short int ifr_flags;
+		int ifr_ivalue;
+		int ifr_mtu;
+		struct ifmap ifr_map;
+		char ifr_slave[16];
+		char ifr_newname[16];
+		char *ifr_data;
+	};
 };
 
 struct ifconf {
