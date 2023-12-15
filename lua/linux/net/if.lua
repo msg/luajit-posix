@@ -57,9 +57,11 @@ struct ifmap {
 
 };
 
-//#define IF_NAMESIZE 16
-//#define IFHWADDRLEN 6
-//#define IFNAMSIZ IF_NAMESIZE
+enum {
+	IF_NAMESIZE = 16,
+	IFNAMSIZ = 16,
+	IFHWADDRLEN = 6,
+}
 
 struct ifreq {
 	union {
