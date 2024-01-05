@@ -61,7 +61,7 @@ enum {
 	IF_NAMESIZE = 16,
 	IFNAMSIZ = 16,
 	IFHWADDRLEN = 6,
-}
+};
 
 struct ifreq {
 	char ifr_name[16];
