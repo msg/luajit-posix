@@ -7,6 +7,7 @@ local ffi	= require('ffi')
 local  C	=  ffi.C
 
 		  require('posix.sys.types')
+		  require('linux.sys.memfd')
 
 ffi.cdef([[
 enum {
