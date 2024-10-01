@@ -17,6 +17,13 @@ enum {
 	FALLOC_FL_ZERO_RANGE		= 0x10,
 	FALLOC_FL_INSERT_RANGE		= 0x20,
 	FALLOC_FL_UNSHARE		= 0x40,
+
+	F_SEAL_SEAL			= 0x0001,
+	F_SEAL_SHRINK			= 0x0002,
+	F_SEAL_GROW			= 0x0004,
+	F_SEAL_WRITE			= 0x0008,
+	F_SEAL_FUTURE_WRITE		= 0x0010,
+	F_SEAL_EXEC			= 0x0020,
 };
 
 int fallocate(int fd, int mode, off_t offset, off_t len);
