@@ -73,7 +73,10 @@ struct ifreq {
 		struct sockaddr ifr_netmask;
 		struct sockaddr ifr_hwaddr;
 		short int ifr_flags;
-		int ifr_ivalue;
+		union {
+			int ifr_ivalue;
+			int ifr_index;
+		};
 		int ifr_mtu;
 		struct ifmap ifr_map;
 		char ifr_slave[16];
