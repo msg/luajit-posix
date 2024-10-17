@@ -90,7 +90,7 @@ struct ifconf {
 	union {
 		char *ifcu_buf;
 		struct ifreq *ifcu_req;
-	} ifc_ifcu;
+	};
 };
 
 unsigned int if_nametoindex (const char *ifname);
