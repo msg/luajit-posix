@@ -1,13 +1,11 @@
 
-PACKAGE=luajit-posix.yaml
+lmod = `pkg-config --variable=INSTALL_LMOD luajit`
+cmod = `pkg-config --variable=INSTALL_CMOD luajit`
 
 all:
-	sed -i -e "s/version.*/version: \"`git describe --long| \
-		sed -e 's/-/./g'`\"/" $(PACKAGE)
-	nfpm package -f $(PACKAGE) -p archlinux -t .
-	nfpm package -f $(PACKAGE) -p apk -t .
-	nfpm package -f $(PACKAGE) -p deb -t .
-	nfpm package -f $(PACKAGE) -p rpm -t .
 
-clean:
-	rm *.rpm *.deb *.apk *.pkg.tar.*
+install:
+	for file in `cd lua;find . -name '*.lua'`; do \
+		/bin/install -v -D -m644 lua/$$file $(PREFIX)$(lmod)/$$file; \
+	done
+
