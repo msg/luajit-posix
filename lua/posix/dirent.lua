@@ -57,7 +57,7 @@ int readdir_r(DIR *, struct dirent *, struct dirent **);
 void rewinddir(DIR *);
 int scandir(const char *, struct dirent ***,
 		int (*)(const struct dirent *),
-		int (*)(const struct dirent **, const struct dirent **);
+		int (*)(const struct dirent **, const struct dirent **));
 void seekdir(DIR *, long);
 long telldir(DIR *);
 ]])
