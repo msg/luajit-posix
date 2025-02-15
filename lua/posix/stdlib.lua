@@ -87,10 +87,11 @@ ffi.cdef([[
 	int unsetenv(const char *);
 	size_t wcstombs(char *, const wchar_t *, size_t);
 	int wctomb(char *, wchar_t);
+	enum {
+		EXIT_FAILURE	= 1,
+		EXIT_SUCCESS	= 0,
+		RAND_MAX	= 2147483647,
+	}
 ]])
-
-stdlib.EXIT_FAILURE	= 1
-stdlib.EXIT_SUCCESS	= 0
-stdlib.RAND_MAX		= 2147483647
 
 return stdlib
