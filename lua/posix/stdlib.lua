@@ -91,7 +91,7 @@ ffi.cdef([[
 		EXIT_FAILURE	= 1,
 		EXIT_SUCCESS	= 0,
 		RAND_MAX	= 2147483647,
-	}
+	};
 ]])
 
 return stdlib

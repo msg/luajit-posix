@@ -20,7 +20,7 @@ typedef int64_t blksize_t;
 		]])
 	end
 else
-ffi.cdef([[
+	ffi.cdef([[
 typedef uint32_t nlink_t;
 typedef uint64_t dev_t;
 typedef int32_t blksize_t;
