@@ -26,9 +26,25 @@ enum {
 	S_ISUID 	= 04000,
 	S_ISGID 	= 02000,
 	S_ISVTX 	= 01000,
+
 	S_IREAD 	= 0400,
 	S_IWRITE	= 0200,
 	S_IEXEC		= 0100,
+
+	S_IRUSR		= S_IREAD,
+	S_IWUSR		= S_IWRITE,
+	S_IXUSR		= S_IEXEC,
+	S_IRWXU		= S_IRUSR|S_IWUSR|S_IXUSR,
+
+	S_IRGRP		= S_IRUSR >> 3,
+	S_IWGRP		= S_IWUSR >> 3,
+	S_IXGRP		= S_IXUSR >> 3,
+	S_IRWXG		= S_IRWXU >> 3,
+
+	S_IROTH		= S_IRGRP >> 3,
+	S_IWOTH		= S_IWGRP >> 3,
+	S_IXOTH		= S_IXGRP >> 3,
+	S_IRWXO		= S_IRWXG >> 3,
 };
 ]]
 if ffi.arch == 'x64' then
