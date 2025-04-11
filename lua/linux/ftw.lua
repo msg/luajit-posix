@@ -37,7 +37,7 @@ struct FTW {
 typedef int (*ftw_func_t) (const char *filename,
 		const struct stat *status, int flag);
 typedef int (*nftw_func_t) (const char *filename,
-		const struct stat *status, int flag, struct FTW *info);
+		struct stat *status, int flag, struct FTW *info);
 extern int ftw (const char *dir, ftw_func_t func, int descriptors);
 extern int nftw (const char *dir, nftw_func_t func, int descriptors, int flag);
 ]]
