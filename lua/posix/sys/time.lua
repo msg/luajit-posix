@@ -41,6 +41,7 @@ int pselect (int __nfds, fd_set *____readfds,
      const struct timeval *____timeout,
      const sigset_t *____sigmask);
 int utimes (const char *__file, const struct timeval __tvp[2]);
+int lutimes (const char *__file, const struct timeval __tvp[2]);
 ]])
 
 return setmetatable(time, {
