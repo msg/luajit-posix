@@ -1,0 +1,24 @@
+#!/bin/sh
+
+name=${0##*nfpm-}
+arch=$(uname -m)
+version=$(git describe)
+cat << EOF >${name}.yaml
+name: "$name"
+arch: "$arch"
+platform: "linux"
+version: "$version"
+epoch: 1
+maintainer: "Matt Gerassimoff <mgeras@gmail.com>"
+description: |
+  LuaJIT posix/linux ffi interface
+homepage: ""
+license: "MIT"
+contents:
+- src: pkg/usr/*
+  dst: /usr
+EOF
+nfpm package -f ${name}.yaml -p archlinux
+nfpm package -f ${name}.yaml -p rpm
+nfpm package -f ${name}.yaml -p deb
+

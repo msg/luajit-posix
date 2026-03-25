@@ -1,0 +1,13 @@
+#!/bin/sh
+set -x
+TOP=$(pwd)
+rm -rf $(pwd)/pkg *pkg.tar* *.rpm *.deb
+PREFIX=${TOP}/pkg/usr
+mkdir -p ${PREFIX}
+make PREFIX=${PREFIX} install
+./nfpm-luajit-posix
+WORKSPACE=${WORKSPACE:-repos}
+mkdir -p ${WORKSPACE}/{archlinux,rocky,debian}
+cp *pkg.tar* ${WORKSPACE}/archlinux
+cp *rpm ${WORKSPACE}/rocky
+cp *deb ${WORKSPACE}/debian
